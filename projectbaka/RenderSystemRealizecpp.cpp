@@ -106,3 +106,9 @@ void Render::RenderThis() {
 		}
 	}
 }
+void SpriteBase::RenderSelf() {
+
+}
+void SpriteBase::RenderSelf(RenderCamera camera) {
+
+}
