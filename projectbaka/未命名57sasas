@@ -1,0 +1,25 @@
+#include<iostream>
+#include<cstring>
+#include<map> 
+using namespace std;
+bool v[100001];
+int main(void){
+	memset(v,0,sizeof(v));	
+	int n,m;
+	int temp; 
+	while(cin>>n>>m){	
+		int count =n; 
+		for(int i=0;i<m;cin>>temp,i++){
+			if(temp<=n&&temp>=0)
+			{
+				if(v[temp]==0){
+					count--;
+					v[temp]=1;
+				}
+			}
+			
+		}
+		cout<<count<<endl;
+	}
+
+} 
