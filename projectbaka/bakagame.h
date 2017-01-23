@@ -2,7 +2,7 @@
 #include "bakamain.h"
 class GameControl {
 private:
-	Baka *ControlBaka;
+	BakaEnvironment *ControlBaka;
 public:
 	virtual void Head() { return; }
 	virtual void Tail() { return; }

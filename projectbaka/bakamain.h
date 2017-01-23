@@ -52,10 +52,10 @@ public:
 	}
 };
 
-class  BAKADLL WorldPart //世界区块
+class  BAKADLL WorldPart
 {
 public:
-	SpriteBase *RenderList[8192]; //渲染表
+	SpriteBase *RenderList[8192]; 
 	int SIZE;
 	WorldPart();
 	~WorldPart();
@@ -94,14 +94,14 @@ class StateMachine
 {
 	int State;
 };
-class BAKADLL Baka // export this class,it's the interface to operate most functions 
+class BAKADLL BakaEnvironment // export this class,it's the interface to operate most functions 
 {
 private:
 #ifdef baka_d2d
-	ID2D1Factory *BakaFactory = NULL; //directXFactory;
-	ID2D1HwndRenderTarget* BakaRenderTarget = NULL;
+	ID2D1Factory *bakaFactory = NULL; //directXFactory;
+	ID2D1HwndRenderTarget* bakaRenderTarget = NULL;
 	ID2D1SolidColorBrush* pBlackBrush = NULL;
-	ID2D1BitmapBrush* BakaBitMapBrush = NULL;
+	ID2D1BitmapBrush* bakaBitMapBrush = NULL;
 	GameControl *bakaGameControl;
 #endif
 	RECT windowRect;
@@ -111,17 +111,17 @@ private:
 	int windowY;
 	int width;
 	int height;
-	IWICImagingFactory *BakaWicFactory = NULL;
-	WorldPart *ThisWorld;
-	RenderCamera *ThisCam;
-	BackGround *ThisBack;
-	Global *ThisGlobal;
+	IWICImagingFactory *bakaWicFactory = NULL;
+	WorldPart *thisWorld;
+	RenderCamera *thisCam;
+	BackGround *thisBack;
+	Global *thisGlobal;
 	// handle to application
-	HWND Baka_Hwnd; // the handle to a new baka application
-	HICON Baka_Icon;
-	HCURSOR Baka_Cursor;
-	HINSTANCE Baka_Instance;
-	HBRUSH Baka_Hbrush;
+	HWND bakaHwnd; // the handle to a new baka application
+	HICON bakaIcon;
+	HCURSOR bakaCursor;
+	HINSTANCE bakaInstance;
+	HBRUSH bakaHBrush;
 	//basic information 
 	B_CHAR title[250];
 	B_CHAR classname[250];
@@ -143,10 +143,10 @@ private:
 		ID2D1Bitmap **ppBitmap
 		);
 	//static baka *baka_test;
-	Baka(int, int, int, int);// the main construction allows users create windows
-	Baka(int, int, int, int, PCWSTR a);
+	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
+	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int SetBackGround(PCWSTR a);
-	Baka(int, int);
+	BakaEnvironment(int, int);
 private:
 	bool RegisterBaka();
 	bool SetDefaultSettings();

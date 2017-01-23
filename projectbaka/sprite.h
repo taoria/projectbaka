@@ -15,8 +15,6 @@ public:
 	bool HaveBitMap;
 	SpriteBase() { SpriteBase(0, 0); }
 	SpriteBase(double x, double y){realX = x;realY = y;}
-	virtual void RenderSelf(RenderCamera camera);
-	virtual void RenderSelf();
 };
 class UI :public SpriteBase {
 

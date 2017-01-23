@@ -1,24 +1,24 @@
 // projectbaka.cpp : Defines the exported functions for the DLL application.
 #pragma once
 #include "stdafx.h"
-#include "SpriteSystem.h"
+#include "sprite.h"
 #include "bakamain.h"
-#include "GlobalSystem.h"
-class BAKADLL Baka;
+#include "global.h"
+class BAKADLL BakaEnvironment;
 using namespace D2D1;
 SpriteBase *test;
-Baka* baka_test;
-Baka::Baka(int x, int y,int wx,int wy){
+BakaEnvironment* baka_test;
+BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//set positions
 	baka_test = this;
 	windowX = x;
 	windowY = y;
 	width = wx;
 	height = wy;
-	ThisWorld = new WorldPart();
-	ThisCam = new RenderCamera(0,0);
-	ThisBack = new BackGround(GLOBAL_WHITE);
-	ThisGlobal = new Global();
+	thisWorld = new WorldPart();
+	thisCam = new RenderCamera(0,0);
+	thisBack = new BackGround(GLOBAL_WHITE);
+	thisGlobal = new Global();
 	//set default info
 	SetDefaultSettings();
 	//registerclass
@@ -27,33 +27,33 @@ Baka::Baka(int x, int y,int wx,int wy){
 	BakaCreateWindow();
 //	BakaAddSrpite();
 	CoInitialize(NULL);
-	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&BakaWicFactory));
+	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&bakaWicFactory));
 	if (FAILED(hr))
 	{
 		Debug("警告", "WIC工厂创建失败");
 	}
 	//DebugInt((int)baka_test);
 }
-int Baka::SetBackGround(PCWSTR a){
-	ThisBack->color = 0;
-	SpriteLoadBitMap(a, ThisBack);
+int BakaEnvironment::SetBackGround(PCWSTR a){
+	thisBack->color = 0;
+	SpriteLoadBitMap(a, thisBack);
 	return 0;
 }
-bool Baka::BakaSetControl(GameControl *p){
+bool BakaEnvironment::BakaSetControl(GameControl *p){
 	this->bakaGameControl = p;
 	return false;
 }
-Baka::Baka(int x, int y, int wx, int wy, PCWSTR a){
+BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	//set positions
 	baka_test = this;
 	windowX = x;
 	windowY = y;
 	width = wx;
 	height = wy;
-	ThisWorld = new WorldPart();
-	ThisCam = new RenderCamera(0, 0);
-	ThisBack = new BackGround(GLOBAL_WHITE);
-	ThisGlobal = new Global();
+	thisWorld = new WorldPart();
+	thisCam = new RenderCamera(0, 0);
+	thisBack = new BackGround(GLOBAL_WHITE);
+	thisGlobal = new Global();
 	//set default info
 	SetDefaultSettings();
 	//registerclass
@@ -62,7 +62,7 @@ Baka::Baka(int x, int y, int wx, int wy, PCWSTR a){
 	BakaCreateWindow();
 	//	BakaAddSrpite();
 	CoInitialize(NULL);
-	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&BakaWicFactory));
+	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&bakaWicFactory));
 	if (FAILED(hr))
 	{
 		Debug("警告", "WIC工厂创建失败");
@@ -70,10 +70,10 @@ Baka::Baka(int x, int y, int wx, int wy, PCWSTR a){
 	SetBackGround(a);
 	//DebugInt((int)baka_test);
 }
-Baka::Baka(int x, int y){
+BakaEnvironment::BakaEnvironment(int x, int y){
 	//set positions
-	ThisWorld = new WorldPart();
-	ThisCam = new RenderCamera(0, 0);
+	thisWorld = new WorldPart();
+	thisCam = new RenderCamera(0, 0);
 	windowX = x;
 	windowY = y;
 	//set default info
@@ -86,19 +86,19 @@ Baka::Baka(int x, int y){
 
 
 }
-bool Baka::RegisterBaka(){
+bool BakaEnvironment::RegisterBaka(){
 	//initialize the informa of baka
 	WNDCLASS Baka_Class;
 	Baka_Class.style = 0;
 	Baka_Class.cbClsExtra = 0;
 	Baka_Class.cbWndExtra = 0;
-	Baka_Class.hIcon = Baka_Icon;
-	Baka_Class.hCursor = Baka_Cursor;
-	Baka_Class.hInstance = Baka_Instance;
+	Baka_Class.hIcon = bakaIcon;
+	Baka_Class.hCursor = bakaCursor;
+	Baka_Class.hInstance = bakaInstance;
 	Baka_Class.lpfnWndProc = BakaProc;
 	Baka_Class.lpszMenuName = NULL;
 	Baka_Class.lpszClassName = classname;
-	Baka_Class.hbrBackground = Baka_Hbrush;
+	Baka_Class.hbrBackground = bakaHBrush;
 	if (RegisterClass(&Baka_Class))
 	{
 		//
@@ -109,50 +109,50 @@ bool Baka::RegisterBaka(){
 
 }
 //default settings 
-bool Baka::SetDefaultSettings(){
-	Baka_Hbrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	Baka_Cursor = (HCURSOR)LoadCursor(NULL, IDC_ARROW);
-	Baka_Icon = LoadIcon(NULL, IDI_APPLICATION);
+bool BakaEnvironment::SetDefaultSettings(){
+	bakaHBrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	bakaCursor = (HCURSOR)LoadCursor(NULL, IDC_ARROW);
+	bakaIcon = LoadIcon(NULL, IDI_APPLICATION);
 	strcpy_s(title , "一个默认的BAKA游戏");
 	strcpy_s(classname, "default_class");
 	return true;
 }
 //function that getting start windows
-bool Baka::BakaCreateWindow(){
+bool BakaEnvironment::BakaCreateWindow(){
 	
-	Baka_Hwnd = CreateWindow(classname, title, WS_POPUPWINDOW, windowX, windowY, width, height, NULL, NULL, Baka_Instance, NULL);
-	GetClientRect(Baka_Hwnd, &windowRect);
-	LRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &BakaFactory);
-	LRESULT hr2 = BakaFactory->CreateHwndRenderTarget(RenderTargetProperties(), HwndRenderTargetProperties(Baka_Hwnd, SizeU(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top)), &BakaRenderTarget);
+	bakaHwnd = CreateWindow(classname, title, WS_POPUPWINDOW, windowX, windowY, width, height, NULL, NULL, bakaInstance, NULL);
+	GetClientRect(bakaHwnd, &windowRect);
+	LRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &bakaFactory);
+	LRESULT hr2 = bakaFactory->CreateHwndRenderTarget(RenderTargetProperties(), HwndRenderTargetProperties(bakaHwnd, SizeU(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top)), &bakaRenderTarget);
 	if (SUCCEEDED(hr2))
 	{
-		switch (ThisBack->GetColor())
+		switch (thisBack->GetColor())
 		{
 		case GLOBAL_BLACK:
 		{
-			BakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::Gold), &pBlackBrush);
+			bakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::Gold), &pBlackBrush);
 			break;
 		}
 		case GLOBAL_WHITE:
 		{
-			BakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
+			bakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
 			break;
 		}
 		case GLOBAL_IMAGE:
 		{
-			BakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
+			bakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
 			break;
 		}
 		default:
 		
-			BakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
+			bakaRenderTarget->CreateSolidColorBrush(ColorF(ColorF::White), &pBlackBrush);
 		}
 	}
 	return true;
 }
-bool Baka::BakaStart(){
-	ShowWindow(Baka_Hwnd, SW_SHOWNORMAL);
-	UpdateWindow(Baka_Hwnd);
+bool BakaEnvironment::BakaStart(){
+	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
+	UpdateWindow(bakaHwnd);
 	MSG msg;
 
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -164,18 +164,18 @@ bool Baka::BakaStart(){
 	}
 	return true;
 }
-void Baka::DrawARectAngle(){
+void BakaEnvironment::DrawARectAngle(){
     #ifdef baka_d2d
 	
-	BakaRenderTarget->BeginDraw();
-	BakaRenderTarget->DrawRectangle(RectF(windowRect.left + 100.0f, windowRect.top + 100.0f, windowRect.right - 100.0f, windowRect.bottom - 100.0f), pBlackBrush);
+	bakaRenderTarget->BeginDraw();
+	bakaRenderTarget->DrawRectangle(RectF(windowRect.left + 100.0f, windowRect.top + 100.0f, windowRect.right - 100.0f, windowRect.bottom - 100.0f), pBlackBrush);
 	this->Render();
 	//RenderSpriteGlobal(test, 200, 200);
-	BakaRenderTarget->EndDraw();
+	bakaRenderTarget->EndDraw();
 	#endif
 }
 //this is main function run in the game
-LRESULT CALLBACK Baka::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
+LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	//HDC    hdc;
 
 	//PAINTSTRUCT ps;
@@ -199,7 +199,7 @@ LRESULT CALLBACK Baka::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 
 }
 
-bool Baka::RenderSprite(RenderCamera *a, SpriteBase *b){
+bool BakaEnvironment::RenderSprite(RenderCamera *a, SpriteBase *b){
 
 	int x = b->realX- a->camera_X; //the x that sprite to camera
 	int y = b->realY - a->camera_Y; //the y that sprite to camera
@@ -208,11 +208,11 @@ bool Baka::RenderSprite(RenderCamera *a, SpriteBase *b){
 	return  RenderSpriteGlobal(b,CenterX+x-(b->sizeX/2) ,CenterY-y-(b->sizeY/2) );
 }
 
-bool Baka::RenderSpriteGlobal(SpriteBase *b,int x,int y){
+bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *b,int x,int y){
 	D2D1_SIZE_F size = b->SpriteBitmap->GetSize();
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
 	//draw bitmap
-	BakaRenderTarget->DrawBitmap(
+	bakaRenderTarget->DrawBitmap(
 		b->SpriteBitmap,
 		D2D1::RectF(
 		upperLeftCorner.x,
@@ -222,7 +222,7 @@ bool Baka::RenderSpriteGlobal(SpriteBase *b,int x,int y){
 		);
 		return false;
 }
-int Baka::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
+int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
 	HRESULT h=NULL;
 	if (!s->HaveBitMap)
 	{

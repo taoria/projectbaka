@@ -1,5 +1,5 @@
 #include "bakamain.h"
-#include "SpriteSystem.h"
+#include "sprite.h"
 class Global :public WorldPart{
 public:
 	SpriteBase *RenderSprite[8192];

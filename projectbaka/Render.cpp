@@ -1,22 +1,21 @@
 #include"stdafx.h"
 #include "bakamain.h"
-#include "GlobalSystem.h"
-#include "SpriteSystem.h"
-#include "RenderSystem.h"
+#include "global.h"
+#include "sprite.h"
+#include "render_system.h"
 void DebugInt(int x){
 	char f[10];
 	sprintf_s(f, "%d", x);
 }
-HRESULT Baka::LoadBitmapFromFile(
+HRESULT BakaEnvironment::LoadBitmapFromFile(
 	LPCWSTR uri,
 	ID2D1Bitmap **pBitmap){
-
 	HRESULT hr=S_OK;
 	IWICBitmapFrameDecode* pFrame = NULL;
 	IWICFormatConverter* pConverter = NULL;
 	IWICBitmapDecoder* pDecoder = NULL;
 	//create a decoder
-	hr = BakaWicFactory->CreateDecoderFromFilename(
+	hr = bakaWicFactory->CreateDecoderFromFilename(
 		uri,
 		NULL,
 		GENERIC_READ,
@@ -35,7 +34,7 @@ HRESULT Baka::LoadBitmapFromFile(
 	}
 	else{
 		// Create the initial frame.
-		hr = BakaWicFactory->CreateFormatConverter(&pConverter);
+		hr = bakaWicFactory->CreateFormatConverter(&pConverter);
 	}
 	if (FAILED(hr))
 	{
@@ -57,7 +56,7 @@ HRESULT Baka::LoadBitmapFromFile(
 		Debug("警告", "转换器初始化失败");
 	}
 	else{
-		hr = BakaRenderTarget->CreateBitmapFromWicBitmap(
+		hr = bakaRenderTarget->CreateBitmapFromWicBitmap(
 			pConverter,
 			NULL,
 			pBitmap
@@ -84,31 +83,32 @@ WorldPart::~WorldPart()
 	SIZE = -1;
 }
 bool BAKADLL abc = true;
-bool Baka::Render()
+bool BakaEnvironment::Render()
 {
-	if (ThisBack->GetColor() == 0){
-		RenderSpriteGlobal(ThisBack, 0,0);
+	if (thisBack->GetColor() == 0){
+		RenderSpriteGlobal(thisBack, 0,0);
 	}
-	for (int i = 0; i <= ThisWorld->SIZE; i++){ 
-		RenderSprite(ThisCam, ThisWorld->RenderList[i]);
+	for (int i = 0; i <= thisWorld->SIZE; i++){ 
+		RenderSprite(thisCam, thisWorld->RenderList[i]);
 	}
 	SpriteBase *s;
-	for (int i = 0; i <= ThisGlobal->SIZE; i++){
-		s = ThisGlobal->RenderList[i];
+	for (int i = 0; i <= thisGlobal->SIZE; i++){
+		s = thisGlobal->RenderList[i];
 		RenderSpriteGlobal(s,s->realY, s->realY);
 	}
 	return true;
 }
 void Render::RenderThis() {
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
-		for (SpriteBase *sprite : (*iterator).second) {
-
+		for (SpriteBase* sprite : (*iterator).second) {
+			
 		}
 	}
 }
-void SpriteBase::RenderSelf() {
-
+Render::Render(BakaEnvironment *be) {
+	this->be = be;
 }
-void SpriteBase::RenderSelf(RenderCamera camera) {
-
+Render* Render::getRender(BakaEnvironment *be) {
+	Render *render = new Render(be);
+	return render;
 }
