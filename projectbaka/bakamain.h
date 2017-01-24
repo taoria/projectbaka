@@ -62,14 +62,6 @@ public:
 	void AddRenderSprite(SpriteBase *s);
 
 };
-HRESULT LoadBitmapFromFile(
-	ID2D1RenderTarget *pRenderTarget,
-	IWICImagingFactory *pIWICFactory,
-	PCWSTR uri,
-	UINT destinationWidth,
-	UINT destinationHeight,
-	ID2D1Bitmap *ppBitmap
-	);
 class BAKADLL Global;
 class BAKADLL WorldBase {
 public:

@@ -99,16 +99,32 @@ bool BakaEnvironment::Render()
 	return true;
 }
 void Render::RenderThis() {
-	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
-		for (SpriteBase* sprite : (*iterator).second) {
-			
-		}
-	}
 }
 Render::Render(BakaEnvironment *be) {
 	this->be = be;
 }
-Render* Render::getRender(BakaEnvironment *be) {
-	Render *render = new Render(be);
-	return render;
+Render* Render::getRender(BakaEnvironment *be,int state) {
+	switch (state) {
+		case Render::STATE_ACTIVE: 
+			return new SpriteRender(be);
+	
+		case Render::STATE_FIXED: 
+			return new FixedRender(be);
+		default:
+			return new Render(be);
+	}
+}
+void SpriteRender::RenderThis() {
+	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
+		for (SpriteBase* sprite : (*iterator).second) {
+			be->RenderSprite(be->thisCam, sprite);
+		}
+	}
+}
+void FixedRender::RenderThis() {
+	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
+		for (SpriteBase* sprite : (*iterator).second) {
+			be->RenderSpriteGlobal(sprite, sprite->realX, sprite->realY);
+		}
+	}
 }

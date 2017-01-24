@@ -11,11 +11,32 @@ class RenderGroup :public std::map<int, std::vector<SpriteBase*>> {
 
 };
 class Render {
-private :
+protected :
 	BakaEnvironment *be;
 	RenderGroup renderGroup;
 	Render(BakaEnvironment *be);
+	int state;
 public:
-	static Render* getRender(BakaEnvironment *be);
+	static Render* getRender(BakaEnvironment *be,int state);
+	static const int STATE_FIXED=0x233;
+	static const int STATE_ACTIVE=0x2333;
+	virtual void RenderThis();
+};
+class SpriteRender :public Render {
+public:
+	SpriteRender(BakaEnvironment *be) :Render(be) {
+		state = STATE_ACTIVE;
+	}
+
 	void RenderThis();
+
+};
+class FixedRender :public Render {
+public:
+	FixedRender(BakaEnvironment *be) :Render(be) {
+		state = STATE_FIXED;
+	}
+
+	void RenderThis();
+
 };
