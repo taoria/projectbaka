@@ -208,12 +208,13 @@ bool BakaEnvironment::RenderSprite(RenderCamera *a, SpriteBase *b){
 	return  RenderSpriteGlobal(b,CenterX+x-(b->sizeX/2) ,CenterY-y-(b->sizeY/2) );
 }
 
-bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *b,int x,int y){
-	D2D1_SIZE_F size = b->SpriteBitmap->GetSize();
+bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *bb,int x,int y){
+	BakaBitmap *bbMap = bb->GetBitmap();
+	D2D1_SIZE_F size = bbMap->GetSize();
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
 	//draw bitmap
 	bakaRenderTarget->DrawBitmap(
-		b->SpriteBitmap,
+		bb->GetBitmap(),
 		D2D1::RectF(
 		upperLeftCorner.x,
 		upperLeftCorner.y,
@@ -222,13 +223,13 @@ bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *b,int x,int y){
 		);
 		return false;
 }
-int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
+/*int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
 	HRESULT h=NULL;
 	if (!s->HaveBitMap)
 	{
 
 		IWICImagingFactory *pIWICFactory=NULL;
-		h = LoadBitmapFromFile( adress, &s->SpriteBitmap);
+		h = LoadBitmapFromFile( adress, &s->GetBitmap());
 		D2D1_SIZE_F size = s->SpriteBitmap->GetSize();
 		s->sizeX = size.width;
 		s->sizeY = size.height;
@@ -243,7 +244,7 @@ int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
 		Debug("¥ÌŒÛ", "ŒªÕº‘ÿ»Î ß∞‹");
 	}
 	return false;
-}
+}*/
 
 //WorldBase:://
 //**********//

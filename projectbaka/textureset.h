@@ -3,11 +3,20 @@
 #include<map>
 #include "bakamain.h"
 using namespace std;
-class texture {
-public:
-	static map<string, texture*> textureset;
-	static BakaEnvironment *be;
+class Texture {
+protected:
+	string textureName;
 	BakaBitmap *bbmap;
-	texture(string tName);
-	void TextureLoadBitmap(PCWSTR adress);
+public:
+	Texture(string tName);
+	~Texture();
+	BakaBitmap** GetBitmap();
+};
+class  TextureManager {
+public:
+	map<string, Texture*> textureset;
+	BakaEnvironment *be;
+	Texture* TextureLoadBitmap(PCWSTR adress,string picname);
+	void TextureDeload(string picname);
+	TextureManager(BakaEnvironment *be);
 };

@@ -1,4 +1,3 @@
-
 #include "Container.h"
 void BaseContainer::PushObject(BaseObject *a){
 	if (a != NULL)

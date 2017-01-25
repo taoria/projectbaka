@@ -82,6 +82,7 @@ public:
 	}
 };
 class BAKADLL GameControl;
+class BAKADLL TextureManager;
 class StateMachine
 {
 	int State;
@@ -98,7 +99,10 @@ private:
 #endif
 	RECT windowRect;
 	BakaBitmap *BakaBitMap = NULL;
-	public:
+	bool RegisterBaka();
+	bool SetDefaultSettings();
+	TextureManager *textureManager;
+public:
 	int windowX; //position of windows
 	int windowY;
 	int width;
@@ -108,8 +112,7 @@ private:
 	RenderCamera *thisCam;
 	BackGround *thisBack;
 	Global *thisGlobal;
-	// handle to application
-	HWND bakaHwnd; // the handle to a new baka application
+	HWND bakaHwnd;
 	HICON bakaIcon;
 	HCURSOR bakaCursor;
 	HINSTANCE bakaInstance;
@@ -123,7 +126,9 @@ private:
 	//
 	bool BakaStart();
 	//virtual void BakaAddSrpite();
-	int  SpriteLoadBitMap(PCWSTR  address, SpriteBase *s);
+	int  SpriteLoadBitMap(PCWSTR  address, SpriteBase *s) {
+		return 0;
+	}
 	bool RenderSprite(RenderCamera *a, SpriteBase *b);
 	bool RenderSpriteGlobal(SpriteBase *b, int x, int y);
 	bool BakaCreateWindow();
@@ -139,7 +144,7 @@ private:
 	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int SetBackGround(PCWSTR a);
 	BakaEnvironment(int, int);
-private:
-	bool RegisterBaka();
-	bool SetDefaultSettings();
+	TextureManager getTextureManagerInstance();
+
+
 };
