@@ -3,11 +3,9 @@
 #define BakaMain()  __stdcall WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 #define Debug(a,b) MessageBox(NULL,a,b,MB_OK)
 #define BAKA_DEBUG
-//global color
 #define GLOBAL_BLACK 233
 #define GLOBAL_WHITE 234
 #define GLOBAL_GREY 235
-//state machine
 #define GLOBAL_IMAGE 237
 #define GLOBAL_COLOR 233
 #ifdef BAKA_DEBUG
@@ -23,13 +21,15 @@ typedef int B_STATEMACHINE;
 typedef int b_Handle;
 class Render;
 
-class BAKADLL SpriteBase;
+
 class BackGround;
-class RenderList;
-class RenderTable;
+class BAKADLL SpriteBase;
 class BAKADLL RenderMachine;
 class BAKADLL BaseContainer;
 class BAKADLL BaseObject;
+class BAKADLL GameControl;
+class BAKADLL TextureManager;
+class BAKADLL Texture;
 class BaseObject
 {
 private:
@@ -81,13 +81,13 @@ public:
 		camera_Y = new_Y;
 	}
 };
-class BAKADLL GameControl;
-class BAKADLL TextureManager;
+
 class StateMachine
 {
 	int State;
 };
-class BAKADLL BakaEnvironment // export this class,it's the interface to operate most functions 
+
+class BAKADLL BakaEnvironment 
 {
 private:
 #ifdef baka_d2d
@@ -129,22 +129,28 @@ public:
 	int  SpriteLoadBitMap(PCWSTR  address, SpriteBase *s) {
 		return 0;
 	}
+	bool RenderTexture(Texture *t,int x,int );
 	bool RenderSprite(RenderCamera *a, SpriteBase *b);
 	bool RenderSpriteGlobal(SpriteBase *b, int x, int y);
+	bool Render();
+
+
 	bool BakaCreateWindow();
 	bool BakaSetControl(GameControl *g);
-	bool Render();
-	LRESULT 	static CALLBACK BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	HRESULT LoadBitmapFromFile(
-		PCWSTR uri,
-		ID2D1Bitmap **ppBitmap
-		);
+
+
 	//static baka *baka_test;
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int SetBackGround(PCWSTR a);
 	BakaEnvironment(int, int);
-	TextureManager getTextureManagerInstance();
+	void Init();
 
+	TextureManager* getTextureManagerInstance();
 
+	LRESULT 	static CALLBACK BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	HRESULT LoadBitmapFromFile(
+		PCWSTR uri,
+		ID2D1Bitmap **ppBitmap
+	);
 };

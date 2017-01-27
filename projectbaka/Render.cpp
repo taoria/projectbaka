@@ -85,17 +85,17 @@ WorldPart::~WorldPart()
 bool BAKADLL abc = true;
 bool BakaEnvironment::Render()
 {
-	if (thisBack->GetColor() == 0){
-		RenderSpriteGlobal(thisBack, 0,0);
-	}
-	for (int i = 0; i <= thisWorld->SIZE; i++){ 
-		RenderSprite(thisCam, thisWorld->RenderList[i]);
-	}
-	SpriteBase *s;
-	for (int i = 0; i <= thisGlobal->SIZE; i++){
-		s = thisGlobal->RenderList[i];
-		RenderSpriteGlobal(s,s->realY, s->realY);
-	}
+	//if (thisBack->GetColor() == 0){
+	//	RenderSpriteGlobal(thisBack, 0,0);
+	//}
+	//for (int i = 0; i <= thisWorld->SIZE; i++){ 
+	//	RenderSprite(thisCam, thisWorld->RenderList[i]);
+	//}
+	//SpriteBase *s;
+	//for (int i = 0; i <= thisGlobal->SIZE; i++){
+	//	s = thisGlobal->RenderList[i];
+	//	RenderSpriteGlobal(s,s->realY, s->realY);
+	//}
 	return true;
 }
 void Render::RenderThis() {
@@ -107,7 +107,6 @@ Render* Render::getRender(BakaEnvironment *be,int state) {
 	switch (state) {
 		case Render::STATE_ACTIVE: 
 			return new SpriteRender(be);
-	
 		case Render::STATE_FIXED: 
 			return new FixedRender(be);
 		default:

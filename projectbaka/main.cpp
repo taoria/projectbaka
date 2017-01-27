@@ -207,21 +207,22 @@ bool BakaEnvironment::RenderSprite(RenderCamera *a, SpriteBase *b){
 	int CenterY = height / 2;
 	return  RenderSpriteGlobal(b,CenterX+x-(b->sizeX/2) ,CenterY-y-(b->sizeY/2) );
 }
-
-bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *bb,int x,int y){
-	BakaBitmap *bbMap = bb->GetBitmap();
+bool BakaEnvironment::RenderTexture(Texture* texture, int x, int y) {
+	BakaBitmap *bbMap = *(texture->GetBitmap());
 	D2D1_SIZE_F size = bbMap->GetSize();
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
-	//draw bitmap
 	bakaRenderTarget->DrawBitmap(
-		bb->GetBitmap(),
+		bbMap,
 		D2D1::RectF(
-		upperLeftCorner.x,
-		upperLeftCorner.y,
-		upperLeftCorner.x + size.width,
-		upperLeftCorner.y + size.height)
-		);
-		return false;
+			upperLeftCorner.x,
+			upperLeftCorner.y,
+			upperLeftCorner.x + size.width,
+			upperLeftCorner.y + size.height)
+	);
+	return false;
+}
+bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *bb,int x,int y){
+	return RenderTexture(bb->spriteTex, x, y);
 }
 /*int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
 	HRESULT h=NULL;
@@ -257,4 +258,14 @@ bool WorldBase::AddSprite(int x, int y, SpriteBase &s){
 	s.realX = x;
 	s.realY = y;
 	return true;
+}
+void BakaEnvironment::Init() {
+	textureManager = new TextureManager(this);
+}
+TextureManager* BakaEnvironment::getTextureManagerInstance() {
+	if (textureManager == NULL) {
+		Debug("错误", "环境未初始化");
+		return NULL;
+	}
+	return textureManager;
 }

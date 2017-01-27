@@ -2,21 +2,21 @@
 #include<string>
 #include<map>
 #include "bakamain.h"
-using namespace std;
-class Texture {
+class BAKADLL Texture {
 protected:
-	string textureName;
+	std::string  textureName;
 	BakaBitmap *bbmap;
 public:
-	Texture(string tName);
+	Texture(std::string tName);
 	~Texture();
 	BakaBitmap** GetBitmap();
 };
-class  TextureManager {
+class BAKADLL  TextureManager {
 public:
-	map<string, Texture*> textureset;
+	std::map<std::string, Texture*> textureset;
 	BakaEnvironment *be;
-	Texture* TextureLoadBitmap(PCWSTR adress,string picname);
-	void TextureDeload(string picname);
+	Texture* TextureLoadBitmap(PCWSTR adress,std::string picname);
+	void TextureDeload(std::string picname);
 	TextureManager(BakaEnvironment *be);
+	void AttachToSprite(SpriteBase* sprite,std::string name);
 };

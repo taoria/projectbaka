@@ -13,16 +13,11 @@ public:
 	double sizeX;
 	double sizeY;
 	bool HaveBitMap;
-	SpriteBase() { SpriteBase(0, 0,""); }
-	SpriteBase(string textname) {
+	SpriteBase() { SpriteBase(0, 0); }
+	SpriteBase(double x, double ye) {
 
 	}
-	SpriteBase(double x, double y, string textname) {
 
-	}
-	BakaBitmap* GetBitmap() {
-		return *(this->spriteTex->GetBitmap());
-	}
 };
 class UI :public SpriteBase {
 

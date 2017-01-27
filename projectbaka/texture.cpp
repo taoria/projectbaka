@@ -1,8 +1,10 @@
 
 #include "stdafx.h"
 #include "textureset.h"
+using namespace std;
 Texture* TextureManager::TextureLoadBitmap(PCWSTR adress,string newTextureName) {
 	Texture *temp = new Texture(newTextureName);
+	Debug("读取位图", "读取位图");
 	HRESULT h = be->LoadBitmapFromFile(adress, temp->GetBitmap());
 	textureset[newTextureName] = temp;
 	return temp;
@@ -23,4 +25,7 @@ void TextureManager::TextureDeload(string textureName) {
 }
 TextureManager::TextureManager(BakaEnvironment *be) {
 	this->be = be;
+}
+void TextureManager::AttachToSprite(SpriteBase* base,std::string  name) {
+	base->
 }
