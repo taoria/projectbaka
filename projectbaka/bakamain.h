@@ -2,17 +2,21 @@
 #define MAX_TITLE_LENGTH  250
 #define BakaMain()  __stdcall WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 #define Debug(a,b) MessageBox(NULL,a,b,MB_OK)
+#define Warning(a,b) MessageBox(NULL,b,a,MB_OK)
 #define BAKA_DEBUG
 #define GLOBAL_BLACK 233
 #define GLOBAL_WHITE 234
 #define GLOBAL_GREY 235
 #define GLOBAL_IMAGE 237
 #define GLOBAL_COLOR 233
+#include <stdarg.h> 
+#include "stdafx.h"
 #ifdef BAKA_DEBUG
-#define S_Debug(b,a) MessageBox(NULL,a,b,MB_OK)
+#define S_Debug(a) MessageBox(NULL,a,a,MB_OK)
 #else
 #define S_Debug(a,b) 
 #endif
+void DebugBox(const char *format, ...); 
 BAKADLL void DebugInt(int);
 #pragma once
 #include "stdafx.h"
@@ -20,8 +24,6 @@ typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
 typedef int b_Handle;
 class Render;
-
-
 class BackGround;
 class BAKADLL SpriteBase;
 class BAKADLL RenderMachine;
@@ -108,15 +110,16 @@ public:
 	int width;
 	int height;
 	IWICImagingFactory *bakaWicFactory = NULL;
-	WorldPart *thisWorld;
-	RenderCamera *thisCam;
-	BackGround *thisBack;
-	Global *thisGlobal;
-	HWND bakaHwnd;
-	HICON bakaIcon;
-	HCURSOR bakaCursor;
-	HINSTANCE bakaInstance;
-	HBRUSH bakaHBrush;
+	WorldPart *thisWorld = NULL;
+	RenderCamera *thisCam = NULL;
+	BackGround *thisBack = NULL;
+	Global *thisGlobal = NULL;
+	HWND bakaHwnd = NULL;
+	HICON bakaIcon = NULL;
+	Render *render = NULL;
+	HCURSOR bakaCursor = NULL;
+	HINSTANCE bakaInstance = NULL;
+	HBRUSH bakaHBrush = NULL;
 	//basic information 
 	B_CHAR title[250];
 	B_CHAR classname[250];
@@ -124,6 +127,8 @@ public:
 	void DrawARectAngle();
 	//зЂВс
 	//
+	void BeginDraw();
+	void EndDraw();
 	bool BakaStart();
 	//virtual void BakaAddSrpite();
 	int  SpriteLoadBitMap(PCWSTR  address, SpriteBase *s) {
@@ -133,8 +138,6 @@ public:
 	bool RenderSprite(RenderCamera *a, SpriteBase *b);
 	bool RenderSpriteGlobal(SpriteBase *b, int x, int y);
 	bool Render();
-
-
 	bool BakaCreateWindow();
 	bool BakaSetControl(GameControl *g);
 

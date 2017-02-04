@@ -4,13 +4,24 @@
 #include "sprite.h"
 #include "bakamain.h"
 #include "global.h"
+#include "render_system.h"
+#include<vector>
+#pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
 using namespace D2D1;
 SpriteBase *test;
-BakaEnvironment* baka_test;
+std::vector<BakaEnvironment*> environmentSet;
+void DebugBox(const char *format, ...) {
+	char buffer[233];
+	va_list args;       //定义一个va_list类型的变量，用来储存单个参数  
+	va_start(args, format); //使args指向可变参数的第一个参数  
+	vsprintf(buffer, format, args);  //必须用vprintf等带V的  
+	va_end(args);       //结束可变参数的获取  
+	S_Debug(buffer);
+}
 BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//set positions
-	baka_test = this;
+	environmentSet.push_back(this);
 	windowX = x;
 	windowY = y;
 	width = wx;
@@ -45,7 +56,7 @@ bool BakaEnvironment::BakaSetControl(GameControl *p){
 }
 BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	//set positions
-	baka_test = this;
+	environmentSet.push_back(this);
 	windowX = x;
 	windowY = y;
 	width = wx;
@@ -81,8 +92,8 @@ BakaEnvironment::BakaEnvironment(int x, int y){
 	//registerclass
 	RegisterBaka();
 	//createwindow;
-	baka_test = this;
-	BakaStart();
+	environmentSet.push_back(this);
+	//BakaStart();
 
 
 }
@@ -150,11 +161,18 @@ bool BakaEnvironment::BakaCreateWindow(){
 	}
 	return true;
 }
+void BakaEnvironment::BeginDraw()
+{
+	this->bakaRenderTarget->BeginDraw();
+}
+void BakaEnvironment::EndDraw()
+{
+	this->bakaRenderTarget->EndDraw();
+}
 bool BakaEnvironment::BakaStart(){
 	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
 	UpdateWindow(bakaHwnd);
 	MSG msg;
-
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 	//	DebugInt(ThisWorld->SIZE);
@@ -166,12 +184,9 @@ bool BakaEnvironment::BakaStart(){
 }
 void BakaEnvironment::DrawARectAngle(){
     #ifdef baka_d2d
-	
-	bakaRenderTarget->BeginDraw();
 	bakaRenderTarget->DrawRectangle(RectF(windowRect.left + 100.0f, windowRect.top + 100.0f, windowRect.right - 100.0f, windowRect.bottom - 100.0f), pBlackBrush);
 	this->Render();
 	//RenderSpriteGlobal(test, 200, 200);
-	bakaRenderTarget->EndDraw();
 	#endif
 }
 //this is main function run in the game
@@ -188,8 +203,15 @@ LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, L
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:{
-
-		baka_test->DrawARectAngle();
+		for (BakaEnvironment *baka : environmentSet) {
+			if (baka->render!=NULL) {
+				baka->render->RenderThis();
+			}
+			else {
+				Warning("ERROR", "No Render attach to Game");
+				
+			}
+		}
 	}
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -211,6 +233,7 @@ bool BakaEnvironment::RenderTexture(Texture* texture, int x, int y) {
 	BakaBitmap *bbMap = *(texture->GetBitmap());
 	D2D1_SIZE_F size = bbMap->GetSize();
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
+	
 	bakaRenderTarget->DrawBitmap(
 		bbMap,
 		D2D1::RectF(

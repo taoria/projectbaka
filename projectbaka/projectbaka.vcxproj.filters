@@ -80,6 +80,9 @@
     <ClCompile Include="texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="control.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="projectbaka.rc">

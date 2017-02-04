@@ -1,6 +1,6 @@
 #pragma once
 #include<map>
-#include<vector>
+#include <vector>
 #include"sprite.h"
 class RenderGroup :public std::map<int, std::vector<SpriteBase*>> {
 	private:
@@ -10,7 +10,7 @@ class RenderGroup :public std::map<int, std::vector<SpriteBase*>> {
 	void AddSprite(SpriteBase* spriteBase) {this->AddSprite(0, spriteBase);}
 
 };
-class Render {
+class BAKADLL Render {
 protected :
 	BakaEnvironment *be;
 	RenderGroup renderGroup;
@@ -21,22 +21,23 @@ public:
 	static const int STATE_FIXED=0x233;
 	static const int STATE_ACTIVE=0x2333;
 	virtual void RenderThis();
+	void AddSprite(int level, SpriteBase* spriteBase) { (renderGroup)[level].push_back(spriteBase); }
+	void AddSprite(SpriteBase* spriteBase) { this->AddSprite(0, spriteBase); }
 };
-class SpriteRender :public Render {
+class BAKADLL SpriteRender :public Render {
 public:
 	SpriteRender(BakaEnvironment *be) :Render(be) {
 		state = STATE_ACTIVE;
+	
 	}
-
 	void RenderThis();
 
 };
-class FixedRender :public Render {
+class BAKADLL FixedRender :public Render {
 public:
 	FixedRender(BakaEnvironment *be) :Render(be) {
 		state = STATE_FIXED;
 	}
-
 	void RenderThis();
 
 };

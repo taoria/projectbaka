@@ -17,7 +17,6 @@ public:
 	SpriteBase(double x, double ye) {
 
 	}
-
 };
 class UI :public SpriteBase {
 
@@ -29,7 +28,7 @@ class BAKADLL GameBackGround :public SpriteBase
 {
 public:
 	LPCWSTR adress;
-	GameBackGround(LPCWSTR  i) :SpriteBase(0, 0,"default_background")
+	GameBackGround(LPCWSTR  i) :SpriteBase(0, 0)
 	{	
 		adress = i;
 	}

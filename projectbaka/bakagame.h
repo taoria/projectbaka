@@ -1,6 +1,7 @@
 
 #include "bakamain.h"
-class GameControl {
+#pragma once
+class BAKADLL GameControl {
 private:
 	BakaEnvironment *ControlBaka;
 public:
@@ -8,4 +9,5 @@ public:
 	virtual void Tail() { return; }
 	virtual void Gaming() { return; }
 	virtual void Loading() { return; }
+	void Init(BakaEnvironment *be);
 };
