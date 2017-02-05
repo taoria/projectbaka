@@ -16,13 +16,13 @@
 #else
 #define S_Debug(a,b) 
 #endif
-void DebugBox(const char *format, ...); 
+void BAKADLL DebugBox(const char *format, ...); 
 BAKADLL void DebugInt(int);
 #pragma once
 #include "stdafx.h"
 typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
-typedef int b_Handle;
+typedef unsigned int b_id;
 class Render;
 class BackGround;
 class BAKADLL SpriteBase;
@@ -35,21 +35,21 @@ class BAKADLL Texture;
 class BaseObject
 {
 private:
-	b_Handle baseObjectId;
+	b_id baseObjectId;
 public:
-	b_Handle ReturnHandleId() {
+	b_id ReturnHandleId() {
 		return  baseObjectId;
 	}
-	void setId(b_Handle id) {
+	void setId(b_id id) {
 		baseObjectId = id;
 	}
 };
 class BaseSystem
 {
 private:
-	b_Handle baseSystemId;
+	b_id baseSystemId;
 public:
-	b_Handle ReturnHandleId() {
+	b_id ReturnHandleId() {
 		return  baseSystemId;
 	}
 };
@@ -99,8 +99,8 @@ private:
 	ID2D1BitmapBrush* bakaBitMapBrush = NULL;
 	GameControl *bakaGameControl;
 #endif
-	RECT windowRect;
-	BakaBitmap *BakaBitMap = NULL;
+	RECT __windowRect;
+	BakaBitmap *__BakaBitMap = NULL;
 	bool RegisterBaka();
 	bool SetDefaultSettings();
 	TextureManager *textureManager;
@@ -150,10 +150,7 @@ public:
 	void Init();
 
 	TextureManager* getTextureManagerInstance();
-
+	void SetGameController(GameControl *gameControl);
 	LRESULT 	static CALLBACK BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	HRESULT LoadBitmapFromFile(
-		PCWSTR uri,
-		ID2D1Bitmap **ppBitmap
-	);
+	HRESULT LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **ppBitmap);
 };

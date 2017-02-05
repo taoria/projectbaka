@@ -9,6 +9,6 @@ void BaseContainer::RemoveObject(BaseObject *a) {
 		size--;
 		objectMap[a->ReturnHandleId()] = NULL;
 }
-BaseObject* BaseContainer::GetObjectById(b_Handle id) {
+BaseObject* BaseContainer::GetObjectById(b_id id) {
 	return objectMap[id];
 }

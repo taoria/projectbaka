@@ -4,14 +4,14 @@
 class DeployController // to calculate a kind of object's size of id;
 {
 private:
-	b_Handle minsize;
-	b_Handle maxsize;
-	b_Handle point;
-	b_Handle backpoint;
+	b_id minsize;
+	b_id maxsize;
+	b_id point;
+	b_id backpoint;
 	BaseContainer *b;
 public:
-	b_Handle  SearchHandle();
-	DeployController(b_Handle min, b_Handle max,BaseContainer *d)
+	b_id  SearchHandle();
+	DeployController(b_id min, b_id max,BaseContainer *d)
 	{
 		minsize = min; maxsize = max;
 		point = min; backpoint = min;

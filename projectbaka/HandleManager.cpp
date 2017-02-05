@@ -12,7 +12,7 @@ void HandleManager::DeployHandler(BaseObject *a){
 BaseContainer* HandleManager::getGlobalHandleList() {
 	return globalHandleList;
 }
-b_Handle DeployController::SearchHandle(){
+b_id DeployController::SearchHandle(){
 	if (b->GetObjectById(point) == NULL)  return point;
 	point = backpoint; //jump to last state;
 	for (; b->GetObjectById(point) != 0; ((point++)-minsize)%(maxsize-minsize));

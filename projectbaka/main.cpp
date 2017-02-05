@@ -5,20 +5,46 @@
 #include "bakamain.h"
 #include "global.h"
 #include "render_system.h"
+#include "bakagame.h"
 #include<vector>
 #pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
 using namespace D2D1;
 SpriteBase *test;
 std::vector<BakaEnvironment*> environmentSet;
-void DebugBox(const char *format, ...) {
+
+//*******************************GLOBAL FUNCTION******************************************************************************//
+
+
+
+void DebugBox(const char *format, ...) { //A Debug Tools
 	char buffer[233];
-	va_list args;       //定义一个va_list类型的变量，用来储存单个参数  
-	va_start(args, format); //使args指向可变参数的第一个参数  
-	vsprintf(buffer, format, args);  //必须用vprintf等带V的  
-	va_end(args);       //结束可变参数的获取  
+	va_list args;      
+	va_start(args, format);
+	vsprintf(buffer, format, args);  
+	va_end(args);      
 	S_Debug(buffer);
 }
+void Wchar_tToString(std::string& szDst, const wchar_t *wchar) //trans str
+{
+	const wchar_t * wText = wchar;
+	DWORD dwNum = WideCharToMultiByte(CP_OEMCP, NULL, wText, -1, NULL, 0, NULL, FALSE);
+	char *psText;  
+	psText = new char[dwNum];
+	WideCharToMultiByte(CP_OEMCP, NULL, wText, -1, psText, dwNum, NULL, FALSE);
+	szDst = psText;
+	delete[]psText;
+}
+
+
+
+
+
+
+
+
+
+//******************************BAKA ENVI******************************************************************************//
 BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//set positions
 	environmentSet.push_back(this);
@@ -132,9 +158,9 @@ bool BakaEnvironment::SetDefaultSettings(){
 bool BakaEnvironment::BakaCreateWindow(){
 	
 	bakaHwnd = CreateWindow(classname, title, WS_POPUPWINDOW, windowX, windowY, width, height, NULL, NULL, bakaInstance, NULL);
-	GetClientRect(bakaHwnd, &windowRect);
+	GetClientRect(bakaHwnd, &__windowRect);
 	LRESULT hr = D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &bakaFactory);
-	LRESULT hr2 = bakaFactory->CreateHwndRenderTarget(RenderTargetProperties(), HwndRenderTargetProperties(bakaHwnd, SizeU(windowRect.right - windowRect.left, windowRect.bottom - windowRect.top)), &bakaRenderTarget);
+	LRESULT hr2 = bakaFactory->CreateHwndRenderTarget(RenderTargetProperties(), HwndRenderTargetProperties(bakaHwnd, SizeU(__windowRect.right - __windowRect.left, __windowRect.bottom - __windowRect.top)), &bakaRenderTarget);
 	if (SUCCEEDED(hr2))
 	{
 		switch (thisBack->GetColor())
@@ -170,6 +196,7 @@ void BakaEnvironment::EndDraw()
 	this->bakaRenderTarget->EndDraw();
 }
 bool BakaEnvironment::BakaStart(){
+	this->bakaGameControl->DoBegin();
 	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
 	UpdateWindow(bakaHwnd);
 	MSG msg;
@@ -184,7 +211,7 @@ bool BakaEnvironment::BakaStart(){
 }
 void BakaEnvironment::DrawARectAngle(){
     #ifdef baka_d2d
-	bakaRenderTarget->DrawRectangle(RectF(windowRect.left + 100.0f, windowRect.top + 100.0f, windowRect.right - 100.0f, windowRect.bottom - 100.0f), pBlackBrush);
+	bakaRenderTarget->DrawRectangle(RectF(__windowRect.left + 100.0f, __windowRect.top + 100.0f, __windowRect.right - 100.0f, __windowRect.bottom - 100.0f), pBlackBrush);
 	this->Render();
 	//RenderSpriteGlobal(test, 200, 200);
 	#endif
@@ -221,6 +248,12 @@ LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, L
 
 }
 
+
+
+
+
+
+
 bool BakaEnvironment::RenderSprite(RenderCamera *a, SpriteBase *b){
 
 	int x = b->realX- a->camera_X; //the x that sprite to camera
@@ -247,28 +280,76 @@ bool BakaEnvironment::RenderTexture(Texture* texture, int x, int y) {
 bool BakaEnvironment::RenderSpriteGlobal(SpriteBase *bb,int x,int y){
 	return RenderTexture(bb->spriteTex, x, y);
 }
-/*int BakaEnvironment::SpriteLoadBitMap(PCWSTR adress,SpriteBase *s){
-	HRESULT h=NULL;
-	if (!s->HaveBitMap)
-	{
+HRESULT BakaEnvironment::LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **pBitmap) {
+	HRESULT hr = S_OK;
+	IWICBitmapFrameDecode* pFrame = NULL;
+	IWICFormatConverter* pConverter = NULL;
+	IWICBitmapDecoder* pDecoder = NULL;
+	//create a decoder
+	hr = bakaWicFactory->CreateDecoderFromFilename(
+		uri,
+		NULL,
+		GENERIC_READ,
+		WICDecodeMetadataCacheOnLoad,
+		&pDecoder
+	);
+	if (FAILED(hr)) {
+		std::wstring str = L"Failed to create Decoder\n path:";
+		str.append(uri);
+		std::string result;
+		Wchar_tToString(result, str.c_str());
+		Warning("Warning", result.c_str());
+		result.clear();
+		str.clear();
+	}
+	else {
 
-		IWICImagingFactory *pIWICFactory=NULL;
-		h = LoadBitmapFromFile( adress, &s->GetBitmap());
-		D2D1_SIZE_F size = s->SpriteBitmap->GetSize();
-		s->sizeX = size.width;
-		s->sizeY = size.height;
+		// Create the initial frame.
+		hr = pDecoder->GetFrame(0, &pFrame);
+	}
+	if (FAILED(hr)) {
+
+	}
+	else {
+		// Create the initial frame.
+		hr = bakaWicFactory->CreateFormatConverter(&pConverter);
+	}
+	if (FAILED(hr))
+	{
+		Debug("Warning", "格式转换器创建失败");
+	}
+	else {
+		//Initialize Converter
+		hr = pConverter->Initialize(
+			pFrame,
+			GUID_WICPixelFormat32bppPBGRA,
+			WICBitmapDitherTypeNone,
+			NULL,
+			0.f,
+			WICBitmapPaletteTypeCustom
+		);
+
+	}
+	if (FAILED(hr)) {
+		Debug("警告", "转换器初始化失败");
+	}
+	else {
+		hr = bakaRenderTarget->CreateBitmapFromWicBitmap(
+			pConverter,
+			NULL,
+			pBitmap
+		);
+
+	}if (FAILED(hr)) {
+		Debug("警告", "位图转换失败");
 	}
 
-	else
-	{
-		Debug("提示", "位图重复载入,请先清空原位图");
-	}
-	if (!SUCCEEDED(h))
-	{
-		Debug("错误", "位图载入失败");
-	}
-	return false;
-}*/
+	// create Bitmap
+
+
+	//get bimap size
+	return hr;
+}
 
 //WorldBase:://
 //**********//
@@ -291,4 +372,8 @@ TextureManager* BakaEnvironment::getTextureManagerInstance() {
 		return NULL;
 	}
 	return textureManager;
+}
+
+void BakaEnvironment::SetGameController(GameControl * gameControl){
+	this->bakaGameControl = gameControl;
 }
