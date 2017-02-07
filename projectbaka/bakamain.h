@@ -135,6 +135,8 @@ public:
 		return 0;
 	}
 	bool RenderTexture(Texture *t,int x,int );
+	bool RenderTexture(Texture * texture, int x, int y, int resizeX, int resizeY);
+	bool RenderTexture(Texture * texture, int x, int y, int resizeX, int resizeY, float rotation);
 	bool RenderSprite(RenderCamera *a, SpriteBase *b);
 	bool RenderSpriteGlobal(SpriteBase *b, int x, int y);
 	bool Render();

@@ -6,16 +6,24 @@ class BAKADLL SpriteBase :public BaseObject
 private:
 	int size=0;
 	int u_id;
+	float rotation=0;
 public:
 	Texture *spriteTex;
 	double realX = 0;
 	double realY = 0;
-	double sizeX;
-	double sizeY;
+	int sizeX =-1;
+	int sizeY =-1;
 	bool HaveBitMap;
 	SpriteBase() { SpriteBase(0, 0); }
 	SpriteBase(double x, double ye) {
-
+	}
+	SpriteBase(double x, double y, int sizeX, int sizeY);
+	void Rotation(float ang);
+	float GetRotation() {
+		return rotation;
+	}
+	void ResetRotation() {
+		rotation = 0;
 	}
 };
 class UI :public SpriteBase {
