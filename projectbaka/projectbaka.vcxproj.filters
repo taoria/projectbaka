@@ -33,33 +33,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="render_system.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="textureset.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="bakagame.h">
-      <Filter>Header Files\game</Filter>
-    </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>Header Files\uncertain</Filter>
-    </ClInclude>
-    <ClInclude Include="global.h">
-      <Filter>Header Files\uncertain</Filter>
-    </ClInclude>
-    <ClInclude Include="handle_deployer.h">
-      <Filter>Header Files\uncertain</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files\uncertain</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files\uncertain</Filter>
-    </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files\uncertain</Filter>
     </ClInclude>
@@ -74,6 +47,33 @@
     </ClInclude>
     <ClInclude Include="core\stdafx.h">
       <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="game\bakagame.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="render\render_system.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\sprite.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\textureset.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="uncertain\Container.h">
+      <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="uncertain\global.h">
+      <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="uncertain\handle_deployer.h">
+      <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="uncertain\Point.h">
+      <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="uncertain\resource.h">
+      <Filter>Header Files\uncertain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
