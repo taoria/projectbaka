@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include<map>
-#include "bakamain.h"
+#include "core\bakamain.h"
 class BAKADLL Texture {
 protected:
 	std::string  textureName;

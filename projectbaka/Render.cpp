@@ -1,8 +1,8 @@
-#include"stdafx.h"
-#include "bakamain.h"
-#include "global.h"
-#include "sprite.h"
-#include "render_system.h"
+#include"core\stdafx.h"
+#include "core\bakamain.h"
+#include "uncertain\global.h"
+#include "render\sprite.h"
+#include "render\render_system.h"
 void DebugInt(int x){
 	char f[10];
 	sprintf_s(f, "%d", x);

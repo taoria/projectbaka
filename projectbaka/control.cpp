@@ -1,4 +1,4 @@
-#include "bakagame.h"
+#include "game\bakagame.h"
 #include <Windows.h>
 
 void GameControl::_SetGameState(state state){

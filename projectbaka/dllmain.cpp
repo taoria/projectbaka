@@ -1,6 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
-#include "stdafx.h"
-#include "bakamain.h"
+#include "core\stdafx.h"
+#include "core\bakamain.h"
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved

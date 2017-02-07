@@ -1,6 +1,5 @@
-#include "stdafx.h"
-#include "sprite.h"
-
+#include "core\stdafx.h"
+#include "render\sprite.h"
 SpriteBase::SpriteBase(double x, double y, int sizeX, int sizeY){
 	this->realX = x;
 	this->realY = y;

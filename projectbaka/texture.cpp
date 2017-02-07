@@ -1,7 +1,7 @@
 
-#include "stdafx.h"
-#include "textureset.h"
-#include "sprite.h"
+#include "core\stdafx.h"
+#include "render\textureset.h"
+#include "render\sprite.h"
 using namespace std;
 Texture* TextureManager::TextureLoadBitmap(PCWSTR adress,string newTextureName) {
 	Texture *temp = new Texture(newTextureName);

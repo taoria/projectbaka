@@ -1,11 +1,11 @@
 // projectbaka.cpp : Defines the exported functions for the DLL application.
 #pragma once
-#include "stdafx.h"
-#include "sprite.h"
+#include "core\stdafx.h"
+#include "render\sprite.h"
 #include "core\bakamain.h"
-#include "global.h"
-#include "render_system.h"
-#include "bakagame.h"
+#include "uncertain\global.h"
+#include "render\render_system.h"
+#include "game\bakagame.h"
 #include<vector>
 #pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
