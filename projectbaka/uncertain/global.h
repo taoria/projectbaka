@@ -8,8 +8,6 @@ public:
 	}
 };
 class BackGround :public SpriteBase{public:
-
-
 	int color=0;
 	BackGround(int b) :SpriteBase(){
 		color = b;

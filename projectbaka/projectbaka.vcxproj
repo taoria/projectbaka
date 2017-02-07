@@ -97,6 +97,8 @@
     <ClInclude Include="render\textureset.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="algorithm.cpp" />
+    <ClCompile Include="algorithm\astar.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BaseContainer.cpp">
