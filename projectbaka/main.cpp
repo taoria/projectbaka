@@ -2,7 +2,7 @@
 #pragma once
 #include "stdafx.h"
 #include "sprite.h"
-#include "bakamain.h"
+#include "core\bakamain.h"
 #include "global.h"
 #include "render_system.h"
 #include "bakagame.h"

@@ -25,14 +25,14 @@
     <Filter Include="Header Files\uncertain">
       <UniqueIdentifier>{e9d710a9-54c6-4240-ab40-d15ddbeff4aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\algorithm">
+      <UniqueIdentifier>{53051bcd-be4b-44f1-9e41-4473b15d93b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bakamain.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="render_system.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
@@ -41,12 +41,6 @@
     </ClInclude>
     <ClInclude Include="sprite.h">
       <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="D2dPrerequisite.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="bakagame.h">
       <Filter>Header Files\game</Filter>
@@ -68,6 +62,18 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="algorithm\astar.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="core\bakamain.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\D2dPrerequisite.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\stdafx.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
