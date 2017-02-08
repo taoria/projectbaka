@@ -2,7 +2,7 @@
 #include<map>
 #include <vector>
 #include"sprite.h"
-class RenderGroup :public std::map<int, std::vector<SpriteBase*>> {
+class RenderGroup :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
 	private:
 		int id;
 	public:
@@ -10,7 +10,7 @@ class RenderGroup :public std::map<int, std::vector<SpriteBase*>> {
 	void AddSprite(SpriteBase* spriteBase) {this->AddSprite(0, spriteBase);}
 
 };
-class BAKADLL Render {
+class BAKADLL Render :public ObjectBase {
 protected :
 	BakaEnvironment *be;
 	RenderGroup renderGroup;

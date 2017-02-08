@@ -20,6 +20,7 @@ void BAKADLL DebugBox(const char *format, ...);
 BAKADLL void DebugInt(int);
 #pragma once
 #include "stdafx.h"
+#include "base_object.h"
 typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
 typedef unsigned int b_id;
@@ -28,11 +29,11 @@ class BackGround;
 class BAKADLL SpriteBase;
 class BAKADLL RenderMachine;
 class BAKADLL BaseContainer;
-class BAKADLL BaseObject;
+class BAKADLL EntityObjectBase;
 class BAKADLL GameControl;
 class BAKADLL TextureManager;
 class BAKADLL Texture;
-class BaseObject
+class EntityObjectBase : public ObjectBase
 {
 private:
 	b_id baseObjectId;
@@ -44,7 +45,7 @@ public:
 		baseObjectId = id;
 	}
 };
-class BaseSystem
+class BaseSystem : public ObjectBase
 {
 private:
 	b_id baseSystemId;
@@ -54,7 +55,7 @@ public:
 	}
 };
 
-class  BAKADLL WorldPart
+class  BAKADLL WorldPart : public ObjectBase
 {
 public:
 	SpriteBase *RenderList[8192]; 
@@ -84,12 +85,12 @@ public:
 	}
 };
 
-class StateMachine
+class StateMachine : public ObjectBase
 {
 	int State;
 };
 
-class BAKADLL BakaEnvironment 
+class BAKADLL BakaEnvironment : public ObjectBase
 {
 private:
 #ifdef baka_d2d

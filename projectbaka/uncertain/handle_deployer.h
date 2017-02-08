@@ -1,7 +1,7 @@
 #pragma once
 //#include "bakamain.h"
 #include "Container.h"
-class DeployController // to calculate a kind of object's size of id;
+class DeployController :public ObjectBase // to calculate a kind of object's size of id;
 {
 private:
 	b_id minsize;
@@ -28,7 +28,7 @@ private:
 	static DeployController *BaseDeploier;
 public:
 
-	static void DeployHandler(BaseObject *a);
+	static void DeployHandler(EntityObjectBase *a);
 	static void InitHandleManager();
 	static BaseContainer* getGlobalHandleList();
 };

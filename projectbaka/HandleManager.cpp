@@ -5,7 +5,7 @@ void HandleManager::InitHandleManager(){
 	globalHandleList = new BaseContainer();
 	BaseDeploier = new DeployController(MIN_SIZE_BASE, MAX_SIZE_BASE,globalHandleList);
 }
-void HandleManager::DeployHandler(BaseObject *a){
+void HandleManager::DeployHandler(EntityObjectBase *a){
 	a->setId(BaseDeploier->SearchHandle());
 	globalHandleList->PushObject(a);
 }

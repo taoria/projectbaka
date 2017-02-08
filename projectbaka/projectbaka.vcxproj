@@ -82,15 +82,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm\astar.h" />
+    <ClInclude Include="core\base_object.h" />
     <ClInclude Include="game\bakagame.h" />
     <ClInclude Include="core\bakamain.h" />
+    <ClInclude Include="game\scene.h" />
     <ClInclude Include="uncertain\Container.h" />
     <ClInclude Include="core\D2dPrerequisite.h" />
     <ClInclude Include="uncertain\global.h" />
     <ClInclude Include="uncertain\handle_deployer.h" />
     <ClInclude Include="uncertain\Point.h" />
     <ClInclude Include="render\render_system.h" />
-    <ClInclude Include="uncertain\resource.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="render\sprite.h" />
     <ClInclude Include="core\stdafx.h" />
     <ClInclude Include="targetver.h" />

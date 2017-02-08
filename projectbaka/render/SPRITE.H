@@ -1,7 +1,7 @@
 #pragma once
 #include "core\bakamain.h"
 #include"render\textureset.h"
-class BAKADLL SpriteBase :public BaseObject
+class BAKADLL SpriteBase :public EntityObjectBase
 {
 private:
 	int size=0;
@@ -29,7 +29,7 @@ public:
 class UI :public SpriteBase {
 
 };
-class SpriteManager {
+class SpriteManager : public ObjectBase {
 	
 };
 class BAKADLL GameBackGround :public SpriteBase

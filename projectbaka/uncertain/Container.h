@@ -2,16 +2,16 @@
 #include "core\bakamain.h"
 #include <map>
 using namespace std;
-class BaseContainer
+class BaseContainer :public ObjectBase
 {
 private:
-	map<b_id,BaseObject*> objectMap;
+	map<b_id,EntityObjectBase*> objectMap;
 	int size;
 public:
-	void PushObject(BaseObject *a);
-	void RemoveObject(BaseObject *a);
+	void PushObject(EntityObjectBase *a);
+	void RemoveObject(EntityObjectBase *a);
 	int getSize() { return size; }
-	BaseObject* GetObjectById(b_id id);
+	EntityObjectBase* GetObjectById(b_id id);
 };
 class SpriteContainer :public BaseContainer
 {

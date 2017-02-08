@@ -1,14 +1,14 @@
 #include "uncertain\Container.h"
-void BaseContainer::PushObject(BaseObject *a){
+void BaseContainer::PushObject(EntityObjectBase *a){
 	if (a != NULL)
 		size++;
 		objectMap[a->ReturnHandleId()] = a;
 }
-void BaseContainer::RemoveObject(BaseObject *a) {
+void BaseContainer::RemoveObject(EntityObjectBase *a) {
 	if (a != NULL)
 		size--;
 		objectMap[a->ReturnHandleId()] = NULL;
 }
-BaseObject* BaseContainer::GetObjectById(b_id id) {
+EntityObjectBase* BaseContainer::GetObjectById(b_id id) {
 	return objectMap[id];
 }

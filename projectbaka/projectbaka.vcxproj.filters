@@ -72,8 +72,14 @@
     <ClInclude Include="uncertain\Point.h">
       <Filter>Header Files\uncertain</Filter>
     </ClInclude>
-    <ClInclude Include="uncertain\resource.h">
+    <ClInclude Include="resource.h">
       <Filter>Header Files\uncertain</Filter>
+    </ClInclude>
+    <ClInclude Include="game\scene.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="core\base_object.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

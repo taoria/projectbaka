@@ -2,7 +2,7 @@
 #include<string>
 #include<map>
 #include "core\bakamain.h"
-class BAKADLL Texture {
+class BAKADLL Texture : public ObjectBase {
 protected:
 	std::string  textureName;
 	BakaBitmap *bbmap;
@@ -11,7 +11,7 @@ public:
 	~Texture();
 	BakaBitmap** GetBitmap();
 };
-class BAKADLL  TextureManager {
+class BAKADLL  TextureManager : public ObjectBase {
 public:
 	std::map<std::string, Texture*> textureset;
 	BakaEnvironment *be;
