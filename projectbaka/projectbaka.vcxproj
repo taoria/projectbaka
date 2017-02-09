@@ -82,7 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="algorithm\astar.h" />
+    <ClInclude Include="core\base_manager.h" />
     <ClInclude Include="core\base_object.h" />
+    <ClInclude Include="core\base_type.h" />
+    <ClInclude Include="core\constant.h" />
+    <ClInclude Include="core\master_manager.h" />
     <ClInclude Include="game\bakagame.h" />
     <ClInclude Include="core\bakamain.h" />
     <ClInclude Include="game\scene.h" />
@@ -101,7 +105,10 @@
   <ItemGroup>
     <ClCompile Include="algorithm.cpp" />
     <ClCompile Include="algorithm\astar.cpp" />
+    <ClCompile Include="constant.cpp" />
     <ClCompile Include="control.cpp" />
+    <ClCompile Include="core\base_type.cpp" />
+    <ClCompile Include="core\master_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BaseContainer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -114,14 +121,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="HandleManager.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Render.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="uncertain\handle_deployer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="projectbaka.rc" />

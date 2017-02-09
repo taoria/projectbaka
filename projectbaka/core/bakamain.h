@@ -145,7 +145,8 @@ public:
 	bool BakaSetControl(GameControl *g);
 
 
-	//static baka *baka_test;
+
+
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int SetBackGround(PCWSTR a);

@@ -187,12 +187,10 @@ bool BakaEnvironment::BakaCreateWindow(){
 	}
 	return true;
 }
-void BakaEnvironment::BeginDraw()
-{
+void BakaEnvironment::BeginDraw(){
 	this->bakaRenderTarget->BeginDraw();
 }
-void BakaEnvironment::EndDraw()
-{
+void BakaEnvironment::EndDraw(){
 	this->bakaRenderTarget->EndDraw();
 }
 bool BakaEnvironment::BakaStart(){
