@@ -2,8 +2,8 @@
 #include "bakamain.h"
 #include "base_manager.h"
 class ManagerBuilder {
-public:
-	virtual BaseMap BuildManager() = 0;
+protected:
+	virtual BaseMap* BuildManager() = 0;
 };
 class ConstantManagerBuilder :public ManagerBuilder {
 public:

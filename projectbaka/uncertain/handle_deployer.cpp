@@ -5,8 +5,10 @@ b_id DeployController::__SearchHandle(){
 }
 
 b_id DeployController::AssignHandle(){
+	return 0;
 }
 
 void DeployController::ReforgeHandle(){
+
 	
 }

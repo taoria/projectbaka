@@ -93,6 +93,9 @@
     <ClInclude Include="core\master_manager.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="algorithm\bmath.h">
+      <Filter>Header Files\algorithm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -132,6 +135,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="uncertain\handle_deployer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="algorithm\math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 //#pragma once
-#include "core\bakamain.h"
+#include "..\core\bakamain.h"
 #include <map>
 using namespace std;
 class BaseContainer :public ObjectBase
