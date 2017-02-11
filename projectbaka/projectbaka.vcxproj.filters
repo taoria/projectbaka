@@ -134,10 +134,10 @@
     <ClCompile Include="core\master_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="uncertain\handle_deployer.cpp">
+    <ClCompile Include="handle_deployer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="algorithm\math.cpp">
+    <ClCompile Include="math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

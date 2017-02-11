@@ -106,7 +106,7 @@
   <ItemGroup>
     <ClCompile Include="algorithm.cpp" />
     <ClCompile Include="algorithm\astar.cpp" />
-    <ClCompile Include="algorithm\math.cpp" />
+    <ClCompile Include="math.cpp" />
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="core\base_type.cpp" />
@@ -128,7 +128,7 @@
     </ClCompile>
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="texture.cpp" />
-    <ClCompile Include="uncertain\handle_deployer.cpp" />
+    <ClCompile Include="handle_deployer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="projectbaka.rc" />

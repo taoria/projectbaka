@@ -1,5 +1,7 @@
-#include "bmath.h"
 #include <algorithm>
+#include<vector>
+#include "algorithm/bmath.h"
+
 template <typename T>
 math::Vector2<T>::Vector2(T x, T y){
 	this->firstElement = x;
@@ -80,6 +82,21 @@ math::Interval<T> & math::Interval<T>::operator=(Interval<T> & i) {
 	this->state = i.state;
 	return *this;
 }
+//this merge i into itself and delete i;
+template<typename T>
+math::Interval<T> & math::Interval<T>::operator <<(Interval & i) {
+	(*this) = Merge(i);
+	delete &i;
+	return *this;
+}
+template<typename T>
+bool math::Interval<T>::operator<(Interval & i) {
+	return this->firstElement < i.firstElement;
+}
+template<typename T>
+bool math::Interval<T>::operator>(Interval & i) {
+	return this->secondElement > i.secondElement;
+}
 template <typename T>
 math::Interval<T>::Interval(T left, T right):Interval<T>(left,right,false,false) {
 }
@@ -159,7 +176,7 @@ math::Interval<T>& math::Interval<T>::Merge(Interval<T> & v) {
 	}
 }
 template <typename T>
-math::Interval<T> & math::Interval<T>::Merge(float x, float y) {
+math::Interval<T> & math::Interval<T>::Merge(T x, T y) {
 	Interval<T> it(x, y, false, false);
 	return Merge(it);
 }
@@ -170,4 +187,30 @@ math::Interval<T> & math::Interval<T>::Intersection(Interval<T> & v) {
 	return *IntervalsIntersection(this, &v, left, right);
 }
 
-
+template<typename T>
+math::Set<math::Interval<T>*>& math::Interval<T>::Split(T x) {
+	math::Set<math::Interval<T>*> *s = new math::Set<math::Interval<T>*>;
+	if (this->Include(x)) {
+		Interval<T>* temp1 = new Interval(firstElement, T);
+		Interval<T>* temp2 = new Interval(T, secondElement);
+		s->push_back(temp1);
+		s->push_back(temp2);
+	}
+	else {
+		delete s;
+	}
+	return *s;
+	
+}
+template<typename T>
+void cmp(T a, T b) {
+	return b > a;
+}
+template<typename T>
+void math::Set<T>::SortIncrease() {
+	std::sort(this->begin(),this->end());
+}
+template<typename T>
+void math::Set<T>::SortDecrease() {
+	std::sort(this->begin(), this->end(),cmp);
+}
