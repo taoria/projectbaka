@@ -2,6 +2,7 @@
 #include "../core/base_object.h"
 #include<vector>
 #include "../core/bakamain.h"
+#include<algorithm>
 namespace math {
 	template <typename T>
 	class Set;
@@ -28,19 +29,20 @@ namespace math {
 	};
 	template <typename T>
 	class Interval :public Vector2<T> {
-	private:
+	protected:
+		
+		static Interval* IntervalsIntersection(Interval *a, Interval *b, int left, int right);
+		bool leftOpen;
+		bool rightOpen;
+		int state;
 		const  static int STATE_POINT = 0x01;
 		const static int STATE_CONNECT = 0x02;
 		const static int STATE_INVALID = 0x03;
 		const static int STATE_INTERVAL = 0x00;
 		const static int STATE_FIRST = 0x23;
 		const static int STATE_LAST = 0x24;
-		static Interval* IntervalsIntersection(Interval *a, Interval *b, int left, int right);
-	protected:
-		bool leftOpen;
-		bool rightOpen;
-		int state;
 	public:
+
 		bool operator ==(Interval &i);
 		Interval& operator =(Interval &i);
 		Interval& operator <<(Interval &i);
@@ -51,14 +53,14 @@ namespace math {
 		Interval(Interval &i);
 		bool Include(T x);
 		bool Include(Interval &i);
-		bool Invalid;
+		bool Invalid();
 		int CompareLeft(Interval &i);
 		bool CompareRight(Interval &i);
 		//Merge Intevals ,if no connection ,a empty interval will be created
 		Interval& Merge(Interval &v);
 		Interval& Merge(T x, T y);
 		Interval& Intersection(Interval &v);
-		 Set<Interval<T>*>& Split(T x);
+		 Set<Interval<T>*>* Split(T x);
 	};
 	template<typename T>
 	class Set :public std::vector<T>, ObjectBase {
@@ -116,7 +118,7 @@ math::Vector2<T> & math::Vector2<T>::operator+(T amount) {
 	return *temp;
 }
 template <typename T>
-math::Interval<T> * math::Interval<T>::IntervalsIntersection(Interval<T> * a, Interval<T> * b, int left, int right) {
+math::Interval<T> * math::Interval<T>::IntervalsIntersection(Interval<T> * a, Interval<T> * b,int left, int right) {
 	if (left == right) {
 		if (left == STATE_FIRST) {
 			return new Interval<T>(*b);
@@ -125,11 +127,11 @@ math::Interval<T> * math::Interval<T>::IntervalsIntersection(Interval<T> * a, In
 			return new Interval<T>(*a);
 		}
 	}
-	float left, right;
+	T tleft, tright;
 	bool lOpen, rOpen;
 	if (STATE_FIRST != left) std::swap(a, b);
-	left = b->firstElement;
-	right = a->secondElement;
+	tleft = b->firstElement;
+	tright = a->secondElement;
 	lOpen = b->leftOpen;
 	rOpen = a->rightOpen;
 	return new Interval<T>(left, right, lOpen, rOpen);
@@ -208,6 +210,10 @@ template <typename T>
 bool math::Interval<T>::Include(Interval<T> & i) {
 	return this->CompareLeft(i) >= 0 && this->CompareRight(i) >= 0;
 }
+template<typename T>
+inline bool math::Interval<T>::Invalid() {
+	return this->state == STATE_INVALID;
+}
 template <typename T>
 //if equals return 0 if i is lefter,return -1,else return 1;
 int math::Interval<T>::CompareLeft(Interval<T> & i) {
@@ -253,18 +259,18 @@ math::Interval<T> & math::Interval<T>::Intersection(Interval<T> & v) {
 }
 
 template<typename T>
-math::Set<math::Interval<T>*>& math::Interval<T>::Split(T x) {
+math::Set<math::Interval<T>*>* math::Interval<T>::Split(T x) {
 	math::Set<math::Interval<T>*> *s = new math::Set<math::Interval<T>*>;
 	if (this->Include(x)) {
-		Interval<T>* temp1 = new Interval(firstElement, T);
-		Interval<T>* temp2 = new Interval(T, secondElement);
+		Interval<T>* temp1 = new Interval(firstElement, x);
+		Interval<T>* temp2 = new Interval(x, secondElement);
 		s->push_back(temp1);
 		s->push_back(temp2);
 	}
 	else {
 		delete s;
 	}
-	return *s;
+	return s;
 
 }
 template<typename T>

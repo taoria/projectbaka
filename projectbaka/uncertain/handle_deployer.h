@@ -15,7 +15,10 @@ namespace IDDeployer {
 
 		}
 	};
-	class BIDSet  :Set<Interval<b_id>>{
+	class BIDSet  :Set<Interval<b_id>*>{
+	public:
+		void Split(b_id id);
+		void Merge(Interval<b_id>*);
 
 	};
 	class DeployController :public ObjectBase // to calculate a kind of object's size of id;
