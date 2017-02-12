@@ -106,7 +106,6 @@
   <ItemGroup>
     <ClCompile Include="algorithm.cpp" />
     <ClCompile Include="algorithm\astar.cpp" />
-    <ClCompile Include="math.cpp" />
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="core\base_type.cpp" />
