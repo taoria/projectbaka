@@ -1,11 +1,26 @@
 #pragma once
 #include "../core/base_object.h"
 #include<vector>
-#include "../core/bakamain.h"
 #include<algorithm>
+#include "../3rd/tinymt/tinymt32.h"
 namespace math {
+	class RIG {
+	
+	private:
+		unsigned int seed;
+		tinymt32_t t;
+		unsigned int __rand();
+	public:
+		RIG(int seed);
+		RIG();
+		//Intervals  are closed
+		int rand_int(int min,int max);
+
+	};
 	template <typename T>
 	class Set;
+	//Randomized Integer Generator
+
 	template <typename T>
 	class Vector2 :public ObjectBase {
 	protected:

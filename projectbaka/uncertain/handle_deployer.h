@@ -14,28 +14,27 @@ namespace IDDeployer {
 		BID_Interval(b_id left, b_id right) :math::Interval<b_id>(left,right){
 
 		}
+		b_id GetRandomBID(BakaEnvironment *b);
 	};
-	class BIDSet  :Set<Interval<b_id>*>{
+	class BIDSet  :public Set<Interval<b_id>*>{
 	public:
 		void Split(b_id id);
 		void Merge(Interval<b_id>*);
+		b_id GetRandomBID(BakaEnvironment *b);
 
 	};
 	class DeployController :public ObjectBase // to calculate a kind of object's size of id;
 	{
 	private:
+		BakaEnvironment *be;
 		b_id minsize;
 		b_id maxsize;
-		std::vector<math::Interval<b_id>>  fixer;
+		BIDSet  fixer;
 		BaseMap *b;
 		b_id  __SearchHandle();
 	public:
-		DeployController(b_id min, b_id max, BaseMap *d) {
-			minsize = min; maxsize = max;
-			math::Interval<b_id>* temp = new math::Interval<b_id>(min, max, false, false);
-			b = d;
-		}
-		b_id AssignHandle();
+		DeployController(b_id min, b_id max, BaseMap *d, BakaEnvironment *be);
+		b_id AssignID();
 		void ReforgeHandle();
 	};
 }

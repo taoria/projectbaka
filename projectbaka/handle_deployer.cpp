@@ -2,11 +2,19 @@
 #include "algorithm/bmath.h"
 using namespace IDDeployer;
 b_id DeployController::__SearchHandle(){
-	return b_id();
+	return 	this->fixer.GetRandomBID(this->be);
+}
+IDDeployer::DeployController::DeployController(b_id min, b_id max, BaseMap * baseMap,BakaEnvironment *be) {
+	minsize = min; maxsize = max;
+	math::Interval<b_id>* temp = new math::Interval<b_id>(min, max, false, false);
+	fixer.push_back(temp);
+	this->be = be;
+	b = baseMap;
 }
 
-b_id DeployController::AssignHandle(){
+b_id DeployController::AssignID(){
 	b_id freeId = __SearchHandle();
+	this->fixer.Split(freeId);
 	return freeId;
 }
 
@@ -18,11 +26,11 @@ void DeployController::ReforgeHandle(){
 Set<Interval<b_id>*>& IDDeployer::BID_Interval::Split(b_id id) {
 	math::Set<math::Interval<b_id>*> *s = new math::Set<math::Interval<b_id>*>;
 	if (this->Include(id)) {
-		if (id - 1>firstElement) {
+		if (id >firstElement) {
 			BID_Interval* temp1 = new BID_Interval(firstElement, id - 1);
 			s->push_back(temp1);
 		}
-		if (id + 1<secondElement) {
+		if (id <secondElement) {
 			BID_Interval* temp2 = new BID_Interval(id + 1, secondElement);
 			s->push_back(temp2);
 		}
@@ -35,6 +43,10 @@ Set<Interval<b_id>*>& IDDeployer::BID_Interval::Split(b_id id) {
 		delete s;
 	}
 	return *s;
+}
+
+b_id IDDeployer::BID_Interval::GetRandomBID(BakaEnvironment* be) {
+	return be->GetRandomInt(this->firstElement, this->secondElement);
 }
 
 void IDDeployer::BIDSet::Split(b_id id) {
@@ -71,4 +83,9 @@ void IDDeployer::BIDSet::Merge(Interval<b_id>* m) {
 	*this = *temp;
 	temp->clear();
 	delete temp;
+}
+
+b_id IDDeployer::BIDSet::GetRandomBID(BakaEnvironment * b) {
+	b->GetRandomInt(0, this->size() - 1);
+	return dynamic_cast<BID_Interval*>(this)->GetRandomBID(b);
 }

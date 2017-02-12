@@ -283,11 +283,11 @@ bool BakaEnvironment::RenderTexture(Texture* texture, int x, int y, int resizeX,
 }
 bool BakaEnvironment::RenderTexture(Texture* texture, int x, int y, int resizeX, int resizeY,float rotation) {
 	BakaBitmap *bbMap = *(texture->GetBitmap());
-	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
+	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F((float)x, (float)y);
 	bakaRenderTarget->SetTransform(
 		D2D1::Matrix3x2F::Rotation(
 			rotation,
-			D2D1::Point2F(x+resizeX/2, y+resizeY/2))
+			D2D1::Point2F((float)x+resizeX/2, (float) y+resizeY/2))
 	);
 	bakaRenderTarget->DrawBitmap(
 		bbMap,
@@ -375,6 +375,10 @@ HRESULT BakaEnvironment::LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 
 	//get bimap size
 	return hr;
+}
+
+int BakaEnvironment::GetRandomInt(int min, int max) {
+	return globalRandomGenerator->rand_int(min, max);
 }
 
 //WorldBase:://

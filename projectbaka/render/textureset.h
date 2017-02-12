@@ -13,7 +13,7 @@ public:
 };
 class BAKADLL  TextureManager : public ObjectBase {
 public:
-	std::map<std::string, Texture*> textureset;
+	std::map<std::string, Texture*>  textureset;
 	BakaEnvironment *be;
 	Texture* TextureLoadBitmap(PCWSTR adress,std::string picname);
 	void TextureDeload(std::string picname);

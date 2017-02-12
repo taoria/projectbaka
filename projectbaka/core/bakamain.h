@@ -21,6 +21,8 @@ BAKADLL void DebugInt(int);
 #pragma once
 #include "stdafx.h"
 #include "base_object.h"
+#include "../algorithm/bmath.h"
+using math::RIG;
 typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
 typedef unsigned int b_id;
@@ -33,6 +35,7 @@ class BAKADLL EntityObjectBase;
 class BAKADLL GameControl;
 class BAKADLL TextureManager;
 class BAKADLL Texture;
+class BAKADLL ObjectBase;
 class EntityObjectBase : public ObjectBase
 {
 private:
@@ -105,6 +108,7 @@ private:
 	bool RegisterBaka();
 	bool SetDefaultSettings();
 	TextureManager *textureManager;
+	RIG * globalRandomGenerator;
 public:
 	int windowX; //position of windows
 	int windowY;
@@ -121,6 +125,7 @@ public:
 	HCURSOR bakaCursor = NULL;
 	HINSTANCE bakaInstance = NULL;
 	HBRUSH bakaHBrush = NULL;
+	
 	//basic information 
 	B_CHAR title[250];
 	B_CHAR classname[250];
@@ -145,16 +150,18 @@ public:
 	bool BakaSetControl(GameControl *g);
 
 
-
-
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int SetBackGround(PCWSTR a);
 	BakaEnvironment(int, int);
 	void Init();
 
+
+
 	TextureManager* getTextureManagerInstance();
 	void SetGameController(GameControl *gameControl);
 	LRESULT 	static CALLBACK BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	HRESULT LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **ppBitmap);
+	//Closed
+	int GetRandomInt(int min,int max);
 };

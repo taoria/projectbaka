@@ -28,6 +28,9 @@
     <Filter Include="Header Files\algorithm">
       <UniqueIdentifier>{53051bcd-be4b-44f1-9e41-4473b15d93b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="thirdParty">
+      <UniqueIdentifier>{f8d070a0-ab4b-4293-b73e-e34a2888b7a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -96,6 +99,12 @@
     <ClInclude Include="algorithm\bmath.h">
       <Filter>Header Files\algorithm</Filter>
     </ClInclude>
+    <ClInclude Include="3rd\tinymt\tinymt64.h">
+      <Filter>thirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\tinymt\tinymt32.h">
+      <Filter>thirdParty</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -136,6 +145,15 @@
     </ClCompile>
     <ClCompile Include="handle_deployer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="algorithm\bmath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3rd\tinymt\tinymt32.cpp">
+      <Filter>thirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="3rd\tinymt\tinymt64.cpp">
+      <Filter>thirdParty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

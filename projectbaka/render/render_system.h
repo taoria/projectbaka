@@ -2,7 +2,7 @@
 #include<map>
 #include <vector>
 #include"sprite.h"
-class RenderGroup :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
+class BAKADLL RenderGroup :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
 	private:
 		int id;
 	public:
