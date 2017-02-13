@@ -4,3 +4,7 @@
 BaseMap* ConstantManagerBuilder::BuildManager(){
 	return new ConstantList();
 }
+
+BaseMap * MasterManager::NewManager(std::string manager) {
+	return nullptr;
+}

@@ -105,6 +105,9 @@
     <ClInclude Include="3rd\tinymt\tinymt32.h">
       <Filter>thirdParty</Filter>
     </ClInclude>
+    <ClInclude Include="core\reflector.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="3rd\tinymt\tinymt64.cpp">
       <Filter>thirdParty</Filter>
+    </ClCompile>
+    <ClCompile Include="core\reflector.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
