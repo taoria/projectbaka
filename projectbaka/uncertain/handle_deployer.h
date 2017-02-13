@@ -1,8 +1,8 @@
 #pragma once
 //#include "bakamain.h"
 #include "Container.h"
-#include "..\core\base_manager.h"
-#include "..\algorithm\bmath.h"
+#include "../core/base_manager.h"
+#include "../algorithm/bmath.h"
 #include <vector>
 #include <utility>
 using math::Interval;

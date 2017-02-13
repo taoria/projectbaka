@@ -1,11 +1,11 @@
 // projectbaka.cpp : Defines the exported functions for the DLL application.
 #pragma once
-#include "core\stdafx.h"
-#include "render\sprite.h"
-#include "core\bakamain.h"
-#include "uncertain\global.h"
-#include "render\render_system.h"
-#include "game\bakagame.h"
+#include "core/stdafx.h"
+#include "render/sprite.h"
+#include "core/bakamain.h"
+#include "uncertain/global.h"
+#include "render/render_system.h"
+#include "game/bakagame.h"
 #include<vector>
 #pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
@@ -73,7 +73,6 @@ BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 }
 int BakaEnvironment::SetBackGround(PCWSTR a){
 	thisBack->color = 0;
-	SpriteLoadBitMap(a, thisBack);
 	return 0;
 }
 bool BakaEnvironment::BakaSetControl(GameControl *p){

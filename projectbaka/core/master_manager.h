@@ -15,5 +15,5 @@ class MasterManager : public ObjectBase, std::map<b_id, BaseMap> {
 private:
 	BaseMap* NewManager(std::string manager);
 public:
-	void RegisterManager(std::string manager,
+	
 };

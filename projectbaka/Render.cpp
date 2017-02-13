@@ -8,6 +8,11 @@ void DebugInt(int x){
 	sprintf_s(f, "%d", x);
 }
 
+b_id BaseSystem::ReturnHandleId()
+{
+	return baseSystemId;
+}
+
 WorldPart::WorldPart()
 {
 	//Debug("test", "test");

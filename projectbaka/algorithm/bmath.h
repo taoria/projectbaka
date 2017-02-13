@@ -27,6 +27,7 @@ namespace math {
 		float firstElement;
 		float secondElement;
 	public:
+		virtual ~Vector2() = default;
 		Vector2(T x, T y);
 		Vector2(Vector2 &v);
 		Vector2(Vector2 *v);

@@ -53,9 +53,7 @@ class BaseSystem : public ObjectBase
 private:
 	b_id baseSystemId;
 public:
-	b_id ReturnHandleId() {
-		return  baseSystemId;
-	}
+	b_id ReturnHandleId();
 };
 
 class  BAKADLL WorldPart : public ObjectBase
@@ -88,13 +86,14 @@ public:
 	}
 };
 
-class StateMachine : public ObjectBase
-{
+class StateMachine : public ObjectBase{
 	int State;
 };
 
 class BAKADLL BakaEnvironment : public ObjectBase
 {
+protected:
+	~BakaEnvironment() = default;
 private:
 #ifdef baka_d2d
 	ID2D1Factory *bakaFactory = NULL; //directXFactory;
@@ -137,9 +136,6 @@ public:
 	void EndDraw();
 	bool BakaStart();
 	//virtual void BakaAddSrpite();
-	int  SpriteLoadBitMap(PCWSTR  address, SpriteBase *s) {
-		return 0;
-	}
 	bool RenderTexture(Texture *t,int x,int );
 	bool RenderTexture(Texture * texture, int x, int y, int resizeX, int resizeY);
 	bool RenderTexture(Texture * texture, int x, int y, int resizeX, int resizeY, float rotation);

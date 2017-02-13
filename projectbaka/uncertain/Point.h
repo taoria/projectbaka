@@ -1,6 +1,6 @@
 #pragma once
 #include<math.h>
-#include "..\core\base_object.h"
+#include "../core/base_object.h"
 class Point :public ObjectBase {
 public:
 	double x;
