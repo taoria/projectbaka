@@ -116,9 +116,6 @@
     <ClCompile Include="BaseContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,6 +156,9 @@
       <Filter>thirdParty</Filter>
     </ClCompile>
     <ClCompile Include="core\reflector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render_sys.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

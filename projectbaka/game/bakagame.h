@@ -1,29 +1,42 @@
 
-#include "core\bakamain.h"
+#include "core/bakamain.h"
 #pragma once
 typedef DWORD state;
+class BAKADLL GameAction {
+public:
+	virtual void DoAction()=0;
+};
+class BAKADLL GameScene {
+public:
+	virtual void ShowScene() = 0;
+};
 class BAKADLL GameControl {
+private:
+	std::map<std::string, GameAction*> ActionSet;
+	std::map<std::string, GameScene*> SceneSet;
 protected:
-	BakaEnvironment *__ControlBaka;
-	state gameState;
-	DWORD FPS;
+	BakaEnvironment *control_baka;
+	state game_state_;
 	const static state GAME_STATE_BEGIN = 0x000023333;
 	const static state GAME_STATE_END = 0x0000BABA;
 	const static state GAME_STATE_LOADING = 0x0000CCCCC;
 	const static state GAME_STATE_GAMING = 0x000066666;
-	void _SetGameState(state state);
-	void _GameLoop();
-	DWORD _GetFrameRefreshingFrequency() {
-		return FPS;
-	}
-	DWORD _SetFrameRefreshingFrequency(DWORD FPS);
+	void _set_game_state(state state);
+	void _game_loop();
+	DWORD _set_fps(DWORD FPS);
 	void _JumpToState(state state);
+	void _do_begin();
 public:
-	virtual void DoBegin();
-	virtual void DoEnd() { return; }
-	virtual void DoGaming() { return; }
-	virtual void WhileLoading() { return; }
-	virtual void WhileGaming() { return; }
-	virtual void DoLoading() { return; }
-	void Init(BakaEnvironment *be);
+	void add_scene(std::string ,GameScene& game_scene);
+	void add_scene(std::string, GameScene* game_scene);
+	void add_acion(std::string, GameAction&);
+	void add_acion(std::string, GameAction*);
+	virtual void do_begin();
+	virtual void do_end() { return; }
+	virtual void do_gaming() { return; }
+	virtual void while_loading() { return; }
+	virtual void while_gaming() { return; }
+	virtual void do_loading() { return; }
+	virtual void do_user_scene(std::string);
+	void init(BakaEnvironment *be);
 };

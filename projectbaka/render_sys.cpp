@@ -1,8 +1,7 @@
-#include"core\stdafx.h"
-#include "core\bakamain.h"
-#include "uncertain\global.h"
-#include "render\sprite.h"
-#include "render\render_system.h"
+#include"core/stdafx.h"
+#include "core/bakamain.h"
+#include "render/sprite.h"
+#include "render/render_system.h"
 void DebugInt(int x){
 	char f[10];
 	sprintf_s(f, "%d", x);
@@ -27,15 +26,15 @@ bool BAKADLL abc = true;
 bool BakaEnvironment::Render()
 {
 	//if (thisBack->GetColor() == 0){
-	//	RenderSpriteGlobal(thisBack, 0,0);
+	//	render_sprite_global(thisBack, 0,0);
 	//}
 	//for (int i = 0; i <= thisWorld->SIZE; i++){ 
-	//	RenderSprite(thisCam, thisWorld->RenderList[i]);
+	//	render_sprite(thisCam, thisWorld->render_list[i]);
 	//}
 	//SpriteBase *s;
 	//for (int i = 0; i <= thisGlobal->SIZE; i++){
-	//	s = thisGlobal->RenderList[i];
-	//	RenderSpriteGlobal(s,s->realY, s->realY);
+	//	s = thisGlobal->render_list[i];
+	//	render_sprite_global(s,s->realY, s->realY);
 	//}
 	return true;
 }
@@ -56,21 +55,21 @@ Render* Render::getRender(BakaEnvironment *be,int state) {
 	}
 }
 void SpriteRender::RenderThis() {
-	this->be->BeginDraw();
+	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {
-			be->RenderSprite(be->thisCam, sprite);
+			be->render_sprite(be->thisCam, sprite);
 		}
 	}
-	this->be->EndDraw();
+	this->be->draw_end();
 }
 void FixedRender::RenderThis() {
-	this->be->BeginDraw();
+	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {
 		
-			be->RenderSpriteGlobal(sprite, sprite->realX, sprite->realY);
+			be->render_sprite_global(sprite, sprite->realX, sprite->realY);
 		}
 	}
-	this->be->EndDraw();
+	this->be->draw_end();
 }
