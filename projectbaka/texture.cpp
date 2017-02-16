@@ -6,11 +6,11 @@
 using namespace std;
 Texture* TextureManager::TextureLoadBitmap(PCWSTR adress,string newTextureName) {
 	Texture *temp = new Texture(newTextureName);
-	HRESULT h = be->LoadBitmapFromFile(adress, temp->GetBitmap());
+	HRESULT h = be->LoadBitmapFromFile(adress, temp->get_bitmap());
 	textureset[newTextureName] = temp;
 	return temp;
 }
-BakaBitmap** Texture::GetBitmap() {
+BakaBitmap** Texture::get_bitmap() {
 	return &bbmap;
 }
 Texture::Texture(string tName) {
@@ -19,7 +19,7 @@ Texture::Texture(string tName) {
 Texture::~Texture() {
 	this->bbmap->Release();
 }
-void TextureManager::TextureDeload(string textureName) {
+void TextureManager::texture_deload(string textureName) {
 	Texture *temp = textureset[textureName];
 	textureset.erase(textureName);
 	temp->~Texture();
@@ -27,6 +27,6 @@ void TextureManager::TextureDeload(string textureName) {
 TextureManager::TextureManager(BakaEnvironment *be) {
 	this->be = be;
 }
-void TextureManager::AttachToSprite(SpriteBase* base,std::string  name) {
+void TextureManager::attach_to_sprite(SpriteBase* base,std::string  name) {
 	base->spriteTex = this->textureset[name];
 }

@@ -9,14 +9,14 @@ protected:
 public:
 	Texture(std::string tName);
 	~Texture();
-	BakaBitmap** GetBitmap();
+	BakaBitmap** get_bitmap();
 };
 class BAKADLL  TextureManager : public ObjectBase {
 public:
 	std::map<std::string, Texture*>  textureset;
 	BakaEnvironment *be;
 	Texture* TextureLoadBitmap(PCWSTR adress,std::string picname);
-	void TextureDeload(std::string picname);
+	void texture_deload(std::string picname);
 	TextureManager(BakaEnvironment *be);
-	void AttachToSprite(SpriteBase* sprite,std::string name);
+	void attach_to_sprite(SpriteBase* sprite,std::string name);
 };

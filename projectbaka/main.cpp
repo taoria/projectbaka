@@ -213,6 +213,11 @@ void BakaEnvironment::DrawARectAngle(){
 	//render_sprite_global(test, 200, 200);
 	#endif
 }
+
+void BakaEnvironment::set_fps(float fps) {
+	this->game_fps = fps;
+}
+
 //this is main function run in the game
 LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	//HDC    hdc;
@@ -261,14 +266,14 @@ bool BakaEnvironment::render_sprite(RenderCamera *a, SpriteBase *b){
 }
 bool BakaEnvironment::render_texture(Texture* texture, int x, int y) {
 
-	BakaBitmap *bbMap = *(texture->GetBitmap());
+	BakaBitmap *bbMap = *(texture->get_bitmap());
 	D2D1_SIZE_F size = bbMap->GetSize();
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
 	this->render_texture(texture, x, y, size.width, size.height);
 	return false;
 }
 bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX, int resizeY) {
-	BakaBitmap *bbMap = *(texture->GetBitmap());
+	BakaBitmap *bbMap = *(texture->get_bitmap());
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
 	bakaRenderTarget->DrawBitmap(
 		bbMap,
@@ -281,7 +286,7 @@ bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX
 	return false;
 }
 bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX, int resizeY,float rotation) {
-	BakaBitmap *bbMap = *(texture->GetBitmap());
+	BakaBitmap *bbMap = *(texture->get_bitmap());
 	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F((float)x, (float)y);
 	bakaRenderTarget->SetTransform(
 		D2D1::Matrix3x2F::Rotation(

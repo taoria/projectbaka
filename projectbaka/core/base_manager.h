@@ -2,5 +2,5 @@
 #include"bakamain.h"
 class BaseMap :public ObjectBase {
 public:
-	virtual unsigned int GetId() = 0;
+	virtual unsigned int get_id() = 0;
 };

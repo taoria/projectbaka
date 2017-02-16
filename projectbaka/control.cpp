@@ -18,12 +18,17 @@ void GameControl::_game_loop() {
 				this->while_gaming();
 				break;
 			}
-
+		
 		default:
 			break;
 		}
 //		Sleep(1000/this->control_baka->GetFixedFrames());
 	}
+}
+
+DWORD GameControl::_set_fps(DWORD FPS) {
+	this->control_baka->set_fps(FPS);
+	return FPS;
 }
 
 /**

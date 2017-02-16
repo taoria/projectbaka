@@ -4,10 +4,12 @@
 typedef DWORD state;
 class BAKADLL GameAction {
 public:
+	virtual ~GameAction() = default;
 	virtual void DoAction()=0;
 };
 class BAKADLL GameScene {
 public:
+	virtual ~GameScene() = default;
 	virtual void ShowScene() = 0;
 };
 class BAKADLL GameControl {
@@ -27,6 +29,7 @@ protected:
 	void _JumpToState(state state);
 	void _do_begin();
 public:
+	virtual ~GameControl() = default;
 	void add_scene(std::string ,GameScene& game_scene);
 	void add_scene(std::string, GameScene* game_scene);
 	void add_acion(std::string, GameAction&);

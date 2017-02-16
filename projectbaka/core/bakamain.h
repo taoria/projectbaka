@@ -139,6 +139,7 @@ public:
 	void DrawARectAngle();
 	//зЂВс
 	//
+	void set_fps(float fps);
 	void draw_begin();
 	void draw_end();
 	bool baka_start();

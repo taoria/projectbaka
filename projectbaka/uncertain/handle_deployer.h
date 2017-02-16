@@ -20,7 +20,8 @@ namespace IDDeployer {
 	public:
 		void Split(b_id id);
 		void Merge(Interval<b_id>*);
-		b_id GetRandomBID(BakaEnvironment *b);
+		b_id get_random_bid(BakaEnvironment *b);
+	
 
 	};
 	class DeployController :public ObjectBase // to calculate a kind of object's size of id;
@@ -35,6 +36,6 @@ namespace IDDeployer {
 	public:
 		DeployController(b_id min, b_id max, BaseMap *d, BakaEnvironment *be);
 		b_id AssignID();
-		void ReforgeHandle();
+		void reforge_handle();
 	};
 }

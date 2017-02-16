@@ -6,5 +6,5 @@ class ConstantList:public  BaseMap,std::map<std::string, DWORD> {
 private:
 	int map_id;
 public:
-	virtual unsigned int GetId();
+	virtual unsigned int get_id();
 };
