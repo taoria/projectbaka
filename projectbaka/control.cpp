@@ -22,7 +22,7 @@ void GameControl::_game_loop() {
 		default:
 			break;
 		}
-//		Sleep(1000/this->control_baka->GetFixedFrames());
+//		Sleep(1000/this->control_baka->get_fixed_frames());
 	}
 }
 
@@ -91,5 +91,5 @@ void GameControl::do_user_scene(std::string) {
 
 void GameControl::init(BakaEnvironment* bakaEn) {
 	this->control_baka = bakaEn;
-	bakaEn->SetGameController(this);
+	bakaEn->set_game_controller(this);
 }

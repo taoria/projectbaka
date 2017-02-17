@@ -12,7 +12,7 @@ class BackGround :public SpriteBase{public:
 	BackGround(int b) :SpriteBase(){
 		color = b;
 	}
-	int GetColor(){
+	int get_color(){
 		return color;
 	}
 

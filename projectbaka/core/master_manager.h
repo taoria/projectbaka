@@ -4,11 +4,11 @@
 #include "../uncertain/handle_deployer.h"
 class ManagerBuilder {
 public:
-	virtual BaseMap* BuildManager() = 0;
+	virtual BaseMap* build_manager() = 0;
 };
 class ConstantManagerBuilder :public ManagerBuilder {
 public:
-		virtual BaseMap* BuildManager();
+		virtual BaseMap* build_manager();
 };
 typedef void* (*CreateObject)(void);
 class MasterManager : public ObjectBase, std::map<b_id, BaseMap> {

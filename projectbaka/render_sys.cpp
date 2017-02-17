@@ -38,13 +38,17 @@ bool BakaEnvironment::Render()
 	//}
 	return true;
 }
-void Render::RenderThis() {
+void Render::render_this() {
 }
+
+render_group::~render_group() {
+}
+
 Render::Render(BakaEnvironment *be) {
 	this->be = be;
 	be->render = this;
 }
-Render* Render::getRender(BakaEnvironment *be,int state) {
+Render* Render::get_render(BakaEnvironment *be,int state) {
 	switch (state) {
 		case Render::STATE_ACTIVE: 
 			return new SpriteRender(be);
@@ -54,7 +58,7 @@ Render* Render::getRender(BakaEnvironment *be,int state) {
 			return new Render(be);
 	}
 }
-void SpriteRender::RenderThis() {
+void SpriteRender::render_this() {
 	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {
@@ -63,7 +67,7 @@ void SpriteRender::RenderThis() {
 	}
 	this->be->draw_end();
 }
-void FixedRender::RenderThis() {
+void FixedRender::render_this() {
 	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {

@@ -61,7 +61,7 @@ BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//registerclass
 	RegisterBaka();
 	//createwindow;
-	BakaCreateWindow();
+	baka_create_window();
 //	BakaAddSrpite();
 	CoInitialize(NULL);
 	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&bakaWicFactory));
@@ -71,11 +71,11 @@ BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	}
 	//DebugInt((int)baka_test);
 }
-int BakaEnvironment::SetBackGround(PCWSTR a){
+int BakaEnvironment::set_back_ground(PCWSTR a){
 	thisBack->color = 0;
 	return 0;
 }
-bool BakaEnvironment::BakaSetControl(GameControl *p){
+bool BakaEnvironment::baka_set_control(GameControl *p){
 	this->bakaGameControl = p;
 	return false;
 }
@@ -95,7 +95,7 @@ BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	//registerclass
 	RegisterBaka();
 	//createwindow;
-	BakaCreateWindow();
+	baka_create_window();
 	//	BakaAddSrpite();
 	CoInitialize(NULL);
 	HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&bakaWicFactory));
@@ -103,7 +103,7 @@ BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	{
 		Debug("警告", "WIC工厂创建失败");
 	}
-	SetBackGround(a);
+	set_back_ground(a);
 	//DebugInt((int)baka_test);
 }
 BakaEnvironment::BakaEnvironment(int x, int y){
@@ -131,7 +131,7 @@ bool BakaEnvironment::RegisterBaka(){
 	Baka_Class.hIcon = bakaIcon;
 	Baka_Class.hCursor = bakaCursor;
 	Baka_Class.hInstance = bakaInstance;
-	Baka_Class.lpfnWndProc = BakaProc;
+	Baka_Class.lpfnWndProc = baka_proc;
 	Baka_Class.lpszMenuName = NULL;
 	Baka_Class.lpszClassName = classname;
 	Baka_Class.hbrBackground = bakaHBrush;
@@ -154,7 +154,7 @@ bool BakaEnvironment::SetDefaultSettings(){
 	return true;
 }
 //function that getting start windows
-bool BakaEnvironment::BakaCreateWindow(){
+bool BakaEnvironment::baka_create_window(){
 	
 	bakaHwnd = CreateWindow(classname, title, WS_POPUPWINDOW, windowX, windowY, width, height, NULL, NULL, bakaInstance, NULL);
 	GetClientRect(bakaHwnd, &__windowRect);
@@ -162,7 +162,7 @@ bool BakaEnvironment::BakaCreateWindow(){
 	LRESULT hr2 = bakaFactory->CreateHwndRenderTarget(RenderTargetProperties(), HwndRenderTargetProperties(bakaHwnd, SizeU(__windowRect.right - __windowRect.left, __windowRect.bottom - __windowRect.top)), &bakaRenderTarget);
 	if (SUCCEEDED(hr2))
 	{
-		switch (thisBack->GetColor())
+		switch (thisBack->get_color())
 		{
 		case GLOBAL_BLACK:
 		{
@@ -219,7 +219,7 @@ void BakaEnvironment::set_fps(float fps) {
 }
 
 //this is main function run in the game
-LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
+LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	//HDC    hdc;
 
 	//PAINTSTRUCT ps;
@@ -234,7 +234,7 @@ LRESULT CALLBACK BakaEnvironment::BakaProc(HWND hwnd, UINT msg, WPARAM wParam, L
 	case WM_PAINT:{
 		for (BakaEnvironment *baka : environmentSet) {
 			if (baka->render!=NULL) {
-				baka->render->RenderThis();
+				baka->render->render_this();
 			}
 			else {
 				Warning("ERROR", "No Render attach to Game");
@@ -310,7 +310,7 @@ bool BakaEnvironment::render_sprite_global(SpriteBase *bb,int x,int y){
 		return render_texture(bb->spriteTex, x, y, bb->sizeX, bb->sizeY);
 	return render_texture(bb->spriteTex, x, y, bb->sizeX, bb->sizeY,bb->GetRotation());
 }
-HRESULT BakaEnvironment::LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **pBitmap) {
+HRESULT BakaEnvironment::load_bitmap(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 	HRESULT hr = S_OK;
 	IWICBitmapFrameDecode* pFrame = NULL;
 	IWICFormatConverter* pConverter = NULL;
@@ -381,11 +381,11 @@ HRESULT BakaEnvironment::LoadBitmapFromFile(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 	return hr;
 }
 
-float BakaEnvironment::GetFixedFrames() {
+float BakaEnvironment::get_fixed_frames() {
 	return this->game_fps;
 }
 
-int BakaEnvironment::GetRandomInt(int min, int max) {
+int BakaEnvironment::get_random_int(int min, int max) {
 	return globalRandomGenerator->rand_int(min, max);
 }
 
@@ -401,10 +401,10 @@ bool WorldBase::AddSprite(int x, int y, SpriteBase &s){
 	s.realY = y;
 	return true;
 }
-void BakaEnvironment::Init() {
+void BakaEnvironment::init() {
 	textureManager = new TextureManager(this);
 }
-TextureManager* BakaEnvironment::getTextureManagerInstance() {
+TextureManager* BakaEnvironment::get_texturemanager_instance() {
 	if (textureManager == NULL) {
 		Debug("错误", "环境未初始化");
 		return NULL;
@@ -412,6 +412,6 @@ TextureManager* BakaEnvironment::getTextureManagerInstance() {
 	return textureManager;
 }
 
-void BakaEnvironment::SetGameController(GameControl * gameControl){
+void BakaEnvironment::set_game_controller(GameControl * gameControl){
 	this->bakaGameControl = gameControl;
 }

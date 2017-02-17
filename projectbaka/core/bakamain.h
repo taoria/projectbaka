@@ -150,18 +150,18 @@ public:
 	bool render_sprite(RenderCamera* a, SpriteBase* b);
 	bool render_sprite_global(SpriteBase* b, int x, int y);
 	bool Render();
-	bool BakaCreateWindow();
-	bool BakaSetControl(GameControl* g);
+	bool baka_create_window();
+	bool baka_set_control(GameControl* g);
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);
-	int SetBackGround(PCWSTR a);
+	int set_back_ground(PCWSTR a);
 	BakaEnvironment(int, int);
-	void Init();
-	TextureManager* getTextureManagerInstance();
-	void SetGameController(GameControl* gameControl);
-	LRESULT static CALLBACK BakaProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	HRESULT LoadBitmapFromFile(PCWSTR uri, ID2D1Bitmap** ppBitmap);
+	void init();
+	TextureManager* get_texturemanager_instance();
+	void set_game_controller(GameControl* gameControl);
+	LRESULT static CALLBACK baka_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	HRESULT load_bitmap(PCWSTR uri, ID2D1Bitmap** ppBitmap);
 	//Closed
-	float GetFixedFrames();
-	int GetRandomInt(int min, int max);
+	float get_fixed_frames();
+	int get_random_int(int min, int max);
 };

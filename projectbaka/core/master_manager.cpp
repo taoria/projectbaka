@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "master_manager.h"
 #include "constant.h"
-BaseMap* ConstantManagerBuilder::BuildManager(){
+BaseMap* ConstantManagerBuilder::build_manager(){
 	return new ConstantList();
 }
 

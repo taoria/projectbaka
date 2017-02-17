@@ -10,16 +10,14 @@ using math::Set;
 namespace IDDeployer {
 	class BID_Interval :public Interval<b_id> {
 	public:
-		Set<Interval<b_id>*>& Split(b_id id);
-		BID_Interval(b_id left, b_id right) :math::Interval<b_id>(left,right){
-
-		}
-		b_id GetRandomBID(BakaEnvironment *b);
+		Set<Interval<b_id>*>& split(b_id id);
+		BID_Interval(b_id left, b_id right);
+		b_id get_random_bid(BakaEnvironment *b);
 	};
 	class BIDSet  :public Set<Interval<b_id>*>{
 	public:
-		void Split(b_id id);
-		void Merge(Interval<b_id>*);
+		void split(b_id id);
+		void merge(Interval<b_id>*);
 		b_id get_random_bid(BakaEnvironment *b);
 	
 
@@ -32,10 +30,10 @@ namespace IDDeployer {
 		b_id maxsize;
 		BIDSet  fixer;
 		BaseMap *b;
-		b_id  __SearchHandle();
+		b_id  __search_handle();
 	public:
 		DeployController(b_id min, b_id max, BaseMap *d, BakaEnvironment *be);
-		b_id AssignID();
+		b_id assign_id();
 		void reforge_handle();
 	};
 }

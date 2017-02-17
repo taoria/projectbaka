@@ -2,42 +2,43 @@
 #include<map>
 #include <vector>
 #include"sprite.h"
-class BAKADLL RenderGroup :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
+class BAKADLL render_group :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
 	private:
 		int id;
 	public:
-	void AddSprite(int level,SpriteBase* spriteBase) {(*this)[level].push_back(spriteBase);}
-	void AddSprite(SpriteBase* spriteBase) {this->AddSprite(0, spriteBase);}
+	virtual ~render_group();
+	void add_sprite(int level,SpriteBase* spriteBase) {(*this)[level].push_back(spriteBase);}
+	void add_sprite(SpriteBase* spriteBase) {this->add_sprite(0, spriteBase);}
 
 };
 class BAKADLL Render :public ObjectBase {
 protected :
 	BakaEnvironment *be;
-	RenderGroup renderGroup;
-	Render(BakaEnvironment *be);
+	render_group renderGroup;
+	explicit Render(BakaEnvironment *be);
 	int state;
 public:
-	static Render* getRender(BakaEnvironment *be,int state);
+	static Render* get_render(BakaEnvironment *be,int state);
 	static const int STATE_FIXED=0x233;
 	static const int STATE_ACTIVE=0x2333;
-	virtual void RenderThis();
-	void AddSprite(int level, SpriteBase* spriteBase) { (renderGroup)[level].push_back(spriteBase); }
-	void AddSprite(SpriteBase* spriteBase) { this->AddSprite(0, spriteBase); }
+	virtual void render_this();
+	void add_sprite(int level, SpriteBase* spriteBase) { (renderGroup)[level].push_back(spriteBase); }
+	void add_sprite(SpriteBase* spriteBase) { this->add_sprite(0, spriteBase); }
 };
 class BAKADLL SpriteRender :public Render {
 public:
-	SpriteRender(BakaEnvironment *be) :Render(be) {
+	explicit SpriteRender(BakaEnvironment *be) :Render(be) {
 		state = STATE_ACTIVE;
 	
 	}
-	void RenderThis();
+	void render_this();
 
 };
 class BAKADLL FixedRender :public Render {
 public:
-	FixedRender(BakaEnvironment *be) :Render(be) {
+	explicit FixedRender(BakaEnvironment *be) :Render(be) {
 		state = STATE_FIXED;
 	}
-	void RenderThis();
+	void render_this();
 
 };

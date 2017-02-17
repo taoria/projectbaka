@@ -1,7 +1,7 @@
 #include "uncertain/handle_deployer.h"
 #include "algorithm/bmath.h"
 using namespace IDDeployer;
-b_id DeployController::__SearchHandle(){
+b_id DeployController::__search_handle(){
 	return 	this->fixer.get_random_bid(this->be);
 }
 IDDeployer::DeployController::DeployController(b_id min, b_id max, BaseMap * baseMap,BakaEnvironment *be) {
@@ -12,9 +12,9 @@ IDDeployer::DeployController::DeployController(b_id min, b_id max, BaseMap * bas
 	b = baseMap;
 }
 
-b_id DeployController::AssignID(){
-	b_id freeId = __SearchHandle();
-	this->fixer.Split(freeId);
+b_id DeployController::assign_id(){
+	b_id freeId = __search_handle();
+	this->fixer.split(freeId);
 	return freeId;
 }
 
@@ -23,7 +23,7 @@ void DeployController::reforge_handle(){
 	
 }
 
-Set<Interval<b_id>*>& IDDeployer::BID_Interval::Split(b_id id) {
+Set<Interval<b_id>*>& IDDeployer::BID_Interval::split(b_id id) {
 	Set<math::Interval<b_id>*> *s = new math::Set<math::Interval<b_id>*>;
 	if (this->Include(id)) {
 		if (id >firstElement) {
@@ -45,11 +45,13 @@ Set<Interval<b_id>*>& IDDeployer::BID_Interval::Split(b_id id) {
 	return *s;
 }
 
-b_id IDDeployer::BID_Interval::GetRandomBID(BakaEnvironment* be) {
-	return be->GetRandomInt(this->firstElement, this->secondElement);
+IDDeployer::BID_Interval::BID_Interval(b_id left, b_id right):math::Interval<unsigned>(left,right){
+}
+b_id IDDeployer::BID_Interval::get_random_bid(BakaEnvironment* be) {
+	return be->get_random_int(this->firstElement, this->secondElement);
 }
 
-void IDDeployer::BIDSet::Split(b_id id) {
+void IDDeployer::BIDSet::split(b_id id) {
 	BIDSet::iterator i = this->begin();
 	for (i; i != this->end(); i++) {
 		if ((*i)->Include(id)) {
@@ -65,7 +67,7 @@ void IDDeployer::BIDSet::Split(b_id id) {
 	delete set;
 }
 
-void IDDeployer::BIDSet::Merge(Interval<b_id>* m) {
+void IDDeployer::BIDSet::merge(Interval<b_id>* m) {
 	this->SortIncrease();
 	BIDSet *temp = new BIDSet;
 	BID_Interval *tempval;
@@ -86,6 +88,6 @@ void IDDeployer::BIDSet::Merge(Interval<b_id>* m) {
 }
 
 b_id IDDeployer::BIDSet::get_random_bid(BakaEnvironment * b) {
-	b->GetRandomInt(0, this->size() - 1);
-	return dynamic_cast<BID_Interval*>(this)->GetRandomBID(b);
+	b->get_random_int(0, this->size() - 1);
+	return dynamic_cast<BID_Interval*>(this)->get_random_bid(b);
 }

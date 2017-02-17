@@ -6,7 +6,7 @@
 using namespace std;
 Texture* TextureManager::TextureLoadBitmap(PCWSTR adress,string newTextureName) {
 	Texture *temp = new Texture(newTextureName);
-	HRESULT h = be->LoadBitmapFromFile(adress, temp->get_bitmap());
+	HRESULT h = be->load_bitmap(adress, temp->get_bitmap());
 	textureset[newTextureName] = temp;
 	return temp;
 }
