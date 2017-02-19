@@ -23,8 +23,7 @@ WorldPart::~WorldPart()
 	SIZE = -1;
 }
 bool BAKADLL abc = true;
-bool BakaEnvironment::Render()
-{
+bool BakaEnvironment::Render(){
 	//if (thisBack->GetColor() == 0){
 	//	render_sprite_global(thisBack, 0,0);
 	//}

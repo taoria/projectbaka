@@ -7,6 +7,6 @@ private:
 	std::map < std::string, CreateObject> reflectorMap;
 public:
 	static Reflector& getInstance();
-	void RegisterClass(std::string name, CreateObject classObject);
+	void register_class(std::string name, CreateObject classObject);
 	void* getClass(std::string name);
 };

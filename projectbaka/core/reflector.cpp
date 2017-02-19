@@ -3,7 +3,7 @@ Reflector& Reflector::getInstance(){
 	static Reflector reflector;
 	return reflector;
 }
-void Reflector::RegisterClass(std::string name, CreateObject className) {
+void Reflector::register_class(std::string name, CreateObject className) {
 	this->reflectorMap[name] = className;
 }
 void * Reflector::getClass(std::string name) {
