@@ -1,19 +1,20 @@
 #pragma once
-#include "bakamain.h"
 #include "base_manager.h"
 #include "../uncertain/handle_deployer.h"
 class ManagerBuilder {
 public:
+	virtual ~ManagerBuilder() = default;
 	virtual BaseMap* build_manager() = 0;
+	void register_builder(std::string name);
+	static void init_base_manager_builder();
 };
 class ConstantManagerBuilder :public ManagerBuilder {
 public:
-		virtual BaseMap* build_manager();
+	BaseMap* build_manager() override;
 };
-typedef void* (*CreateObject)(void);
-class MasterManager : public ObjectBase, std::map<b_id, BaseMap> {
+class MasterManager {
 private:
-	BaseMap* NewManager(std::string manager);
+	BaseMap* new_manager(std::string manager);
 public:
-	
+	virtual ~MasterManager() = default;
 };

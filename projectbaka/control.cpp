@@ -86,6 +86,10 @@ void GameControl::_do_begin() {
 	DebugBox("23333");
 }
 
+GameControl::~GameControl() {
+
+}
+
 void GameControl::do_user_scene(std::string) {
 }
 

@@ -132,6 +132,9 @@
     <ClCompile Include="render_sys.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="scene.cpp">
+      <FileType>CppClass</FileType>
+    </ClCompile>
     <ClCompile Include="sprite.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="handle_deployer.cpp" />

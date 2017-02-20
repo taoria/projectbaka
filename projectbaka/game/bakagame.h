@@ -29,7 +29,7 @@ protected:
 	void _JumpToState(state state);
 	void _do_begin();
 public:
-	virtual ~GameControl() = default;
+	virtual ~GameControl();
 	void add_scene(std::string ,GameScene& game_scene);
 	void add_scene(std::string, GameScene* game_scene);
 	void add_acion(std::string, GameAction&);

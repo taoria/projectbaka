@@ -19,10 +19,10 @@ public:
 	}
 	SpriteBase(double x, double y, int sizeX, int sizeY);
 	void Rotation(float ang);
-	float GetRotation() {
+	float get_rotation() {
 		return rotation;
 	}
-	void ResetRotation() {
+	void reset_rotation() {
 		rotation = 0;
 	}
 };

@@ -306,9 +306,9 @@ bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX
 bool BakaEnvironment::render_sprite_global(SpriteBase *bb,int x,int y){
 	if (bb->sizeX == -1)
 		return render_texture(bb->spriteTex, x, y);
-	else if(bb->GetRotation()==0.0f)
+	else if(bb->get_rotation()==0.0f)
 		return render_texture(bb->spriteTex, x, y, bb->sizeX, bb->sizeY);
-	return render_texture(bb->spriteTex, x, y, bb->sizeX, bb->sizeY,bb->GetRotation());
+	return render_texture(bb->spriteTex, x, y, bb->sizeX, bb->sizeY,bb->get_rotation());
 }
 HRESULT BakaEnvironment::load_bitmap(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 	HRESULT hr = S_OK;
