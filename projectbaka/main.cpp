@@ -193,7 +193,7 @@ void BakaEnvironment::draw_end(){
 	this->bakaRenderTarget->EndDraw();
 }
 bool BakaEnvironment::baka_start(){
-	this->bakaGameControl->do_begin();
+//	this->bakaGameControl->do_begin();
 	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
 	UpdateWindow(bakaHwnd);
 	MSG msg;
