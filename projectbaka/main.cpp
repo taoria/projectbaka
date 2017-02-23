@@ -11,12 +11,36 @@
 class BAKADLL BakaEnvironment;
 using namespace D2D1;
 SpriteBase *test;
-std::vector<BakaEnvironment*> environmentSet;
+std::vector<BakaEnvironment*> environment_set;
+std::vector<Render*> render_set;
+std::vector<GameControl*> controller_set;
 
 //*******************************GLOBAL FUNCTION******************************************************************************//
+DWORD WINAPI GameControl::game_looping(void* args) {
+	GameControl *gc = static_cast<GameControl*>(args);
+	while(true) {
+		//InvalidateRgn(gc->control_baka->bakaHwnd, NULL, true);
+		UpdateWindow(gc->control_baka->bakaHwnd);
+		gc->do_gaming();
+		SendMessage(gc->control_baka->bakaHwnd, WM_PAINT, NULL, NULL);
+		if (gc->control_baka->get_fixed_frames() > 10)
+			Sleep(gc->control_baka->get_fixed_frames());
+		else
+			Sleep(33);
+	}
 
-
-
+}
+void GameControl::game_start() {
+	HANDLE hThread_1 = CreateThread(NULL, 0, game_looping, this, 0, NULL);
+}
+Render::Render(BakaEnvironment* be) {
+	this->be = be;
+	render_set.push_back(this);
+}
+void GameControl::init(BakaEnvironment* bakaEn) {
+	this->control_baka = bakaEn;
+	controller_set.push_back(this);
+}
 void DebugBox(const char *format, ...) { //A Debug Tools
 	char buffer[233];
 	va_list args;      
@@ -35,19 +59,10 @@ void Wchar_tToString(std::string& szDst, const wchar_t *wchar) //trans str
 	szDst = psText;
 	delete[]psText;
 }
-
-
-
-
-
-
-
-
-
 //******************************BAKA ENVI******************************************************************************//
 BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//set positions
-	environmentSet.push_back(this);
+	environment_set.push_back(this);
 	windowX = x;
 	windowY = y;
 	width = wx;
@@ -57,9 +72,9 @@ BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	thisBack = new BackGround(GLOBAL_WHITE);
 	thisGlobal = new Global();
 	//set default info
-	SetDefaultSettings();
+	set_default_settings();
 	//registerclass
-	RegisterBaka();
+	register_baka();
 	//createwindow;
 	baka_create_window();
 //	BakaAddSrpite();
@@ -76,12 +91,11 @@ int BakaEnvironment::set_back_ground(PCWSTR a){
 	return 0;
 }
 bool BakaEnvironment::baka_set_control(GameControl *p){
-	this->bakaGameControl = p;
 	return false;
 }
 BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	//set positions
-	environmentSet.push_back(this);
+	environment_set.push_back(this);
 	windowX = x;
 	windowY = y;
 	width = wx;
@@ -91,9 +105,9 @@ BakaEnvironment::BakaEnvironment(int x, int y, int wx, int wy, PCWSTR a){
 	thisBack = new BackGround(GLOBAL_WHITE);
 	thisGlobal = new Global();
 	//set default info
-	SetDefaultSettings();
+	set_default_settings();
 	//registerclass
-	RegisterBaka();
+	register_baka();
 	//createwindow;
 	baka_create_window();
 	//	BakaAddSrpite();
@@ -113,16 +127,16 @@ BakaEnvironment::BakaEnvironment(int x, int y){
 	windowX = x;
 	windowY = y;
 	//set default info
-	SetDefaultSettings();
+	set_default_settings();
 	//registerclass
-	RegisterBaka();
+	register_baka();
 	//createwindow;
-	environmentSet.push_back(this);
+	environment_set.push_back(this);
 	//baka_start();
 
 
 }
-bool BakaEnvironment::RegisterBaka(){
+bool BakaEnvironment::register_baka(){
 	//initialize the informa of baka
 	WNDCLASS Baka_Class;
 	Baka_Class.style = 0;
@@ -145,7 +159,7 @@ bool BakaEnvironment::RegisterBaka(){
 
 }
 //default settings 
-bool BakaEnvironment::SetDefaultSettings(){
+bool BakaEnvironment::set_default_settings(){
 	bakaHBrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	bakaCursor = (HCURSOR)LoadCursor(NULL, IDC_ARROW);
 	bakaIcon = LoadIcon(NULL, IDI_APPLICATION);
@@ -193,10 +207,10 @@ void BakaEnvironment::draw_end(){
 	this->bakaRenderTarget->EndDraw();
 }
 bool BakaEnvironment::baka_start(){
-//	this->bakaGameControl->do_begin();
 	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
 	UpdateWindow(bakaHwnd);
 	MSG msg;
+
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 	//	DebugInt(ThisWorld->SIZE);
@@ -206,10 +220,18 @@ bool BakaEnvironment::baka_start(){
 	}
 	return true;
 }
+
+void BakaEnvironment::FlushWindows() {
+	this->bakaRenderTarget->Flush();
+}
+
+void BakaEnvironment::DrawWindwos() {
+	this->bakaRenderTarget->Clear();
+}
+
 void BakaEnvironment::DrawARectAngle(){
     #ifdef baka_d2d
 	bakaRenderTarget->DrawRectangle(RectF(__windowRect.left + 100.0f, __windowRect.top + 100.0f, __windowRect.right - 100.0f, __windowRect.bottom - 100.0f), pBlackBrush);
-	this->Render();
 	//render_sprite_global(test, 200, 200);
 	#endif
 }
@@ -225,23 +247,22 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 	//PAINTSTRUCT ps;
 
 	//RECT     rect;
-
 	switch (msg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:{
-		for (BakaEnvironment *baka : environmentSet) {
-			if (baka->render!=NULL) {
-				baka->render->render_this();
-			}
-			else {
-				Warning("ERROR", "No Render attach to Game");
-				
-			}
+		for(Render *r:render_set) {
+			r->render_this();
 		}
+		break;
 	}
+	case WM_CREATE:
+		{
+
+		break;
+		}
 	default:
 		return DefWindowProc(hwnd, msg, wParam, lParam);
 
@@ -291,8 +312,8 @@ bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX
 	bakaRenderTarget->SetTransform(
 		D2D1::Matrix3x2F::Rotation(
 			rotation,
-			D2D1::Point2F((float)x+resizeX/2, (float) y+resizeY/2))
-	);
+			D2D1::Point2F(x+resizeX/2,y+resizeY/2)
+		));
 	bakaRenderTarget->DrawBitmap(
 		bbMap,
 		D2D1::RectF(
@@ -351,6 +372,7 @@ HRESULT BakaEnvironment::load_bitmap(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 	else {
 		//Initialize Converter
 		hr = pConverter->Initialize(
+
 			pFrame,
 			GUID_WICPixelFormat32bppPBGRA,
 			WICBitmapDitherTypeNone,
@@ -401,17 +423,7 @@ bool WorldBase::AddSprite(int x, int y, SpriteBase &s){
 	s.realY = y;
 	return true;
 }
-void BakaEnvironment::init() {
-	textureManager = new TextureManager(this);
-}
-TextureManager* BakaEnvironment::get_texturemanager_instance() {
-	if (textureManager == NULL) {
-		Debug("错误", "环境未初始化");
-		return NULL;
-	}
-	return textureManager;
-}
 
-void BakaEnvironment::set_game_controller(GameControl * gameControl){
-	this->bakaGameControl = gameControl;
+TextureManager* BakaEnvironment::get_texturemanager_instance() {
+	return  new TextureManager(this);
 }

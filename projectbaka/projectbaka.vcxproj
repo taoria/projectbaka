@@ -43,6 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\..\..\bakaTestDemo\TestDemo1\Debug</OutDir>
+    <CodeAnalysisRuleSet>MixedRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,6 +89,7 @@
     <ClInclude Include="core\base_manager.h" />
     <ClInclude Include="core\base_object.h" />
     <ClInclude Include="core\base_type.h" />
+    <ClInclude Include="core\bthread.h" />
     <ClInclude Include="core\constant.h" />
     <ClInclude Include="core\master_manager.h" />
     <ClInclude Include="core\reflector.h" />

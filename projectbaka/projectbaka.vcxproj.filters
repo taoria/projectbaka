@@ -19,9 +19,6 @@
     <Filter Include="Header Files\render">
       <UniqueIdentifier>{9ad8c08c-86e5-4fa2-a4dd-f8924f471a88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\game">
-      <UniqueIdentifier>{6f3167a6-f737-45cb-92df-545116a49cf1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\uncertain">
       <UniqueIdentifier>{e9d710a9-54c6-4240-ab40-d15ddbeff4aa}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,24 @@
     </Filter>
     <Filter Include="thirdParty">
       <UniqueIdentifier>{f8d070a0-ab4b-4293-b73e-e34a2888b7a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game_base">
+      <UniqueIdentifier>{2f7cef8e-ef05-41d3-80ea-e0add0540c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game_core">
+      <UniqueIdentifier>{6f3167a6-f737-45cb-92df-545116a49cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\anime">
+      <UniqueIdentifier>{36cbfe21-ff73-41b4-80d5-1d8c63211d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\particle">
+      <UniqueIdentifier>{b6c89aa4-df0b-4f1b-bfbd-e1a00abc27d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sound">
+      <UniqueIdentifier>{db11b0fa-2e23-4a4a-a9cb-a445fad3513f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\event">
+      <UniqueIdentifier>{4d174f15-47d0-4737-bd27-a60eb3d3da37}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +67,7 @@
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="game\bakagame.h">
-      <Filter>Header Files\game</Filter>
+      <Filter>Header Files\game_core</Filter>
     </ClInclude>
     <ClInclude Include="render\render_system.h">
       <Filter>Header Files\render</Filter>
@@ -79,7 +94,7 @@
       <Filter>Header Files\uncertain</Filter>
     </ClInclude>
     <ClInclude Include="game\scene.h">
-      <Filter>Header Files\game</Filter>
+      <Filter>Header Files\game_core</Filter>
     </ClInclude>
     <ClInclude Include="core\base_object.h">
       <Filter>Header Files\core</Filter>
@@ -106,6 +121,9 @@
       <Filter>thirdParty</Filter>
     </ClInclude>
     <ClInclude Include="core\reflector.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\bthread.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>

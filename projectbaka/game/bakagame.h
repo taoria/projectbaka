@@ -5,12 +5,12 @@ typedef DWORD state;
 class BAKADLL GameAction {
 public:
 	virtual ~GameAction() = default;
-	virtual void DoAction()=0;
+	virtual void do_action()=0;
 };
 class BAKADLL GameScene {
 public:
 	virtual ~GameScene() = default;
-	virtual void ShowScene() = 0;
+	virtual void show_scene() = 0;
 };
 class BAKADLL GameControl {
 private:
@@ -25,11 +25,12 @@ protected:
 	const static state GAME_STATE_GAMING = 0x000066666;
 	void _set_game_state(state state);
 	void _game_loop();
-	DWORD _set_fps(DWORD FPS);
+	
 	void _JumpToState(state state);
 	void _do_begin();
 public:
 	virtual ~GameControl();
+	DWORD _set_fps(DWORD FPS);
 	void add_scene(std::string ,GameScene& game_scene);
 	void add_scene(std::string, GameScene* game_scene);
 	void add_acion(std::string, GameAction&);
@@ -37,6 +38,8 @@ public:
 	virtual void do_begin();
 	virtual void do_end() { return; }
 	virtual void do_gaming() { return; }
+	void game_start();
+	static DWORD WINAPI game_looping(void* args);
 	virtual void while_loading() { return; }
 	virtual void while_gaming() { return; }
 	virtual void do_loading() { return; }

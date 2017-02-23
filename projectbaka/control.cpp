@@ -78,6 +78,7 @@ void GameControl::add_acion(std::string name, GameAction* game_action) {
 void GameControl::do_begin() {
 }
 
+
 void GameControl::add_acion(std::string name, GameAction& game_action) {
 	this->ActionSet[name] = &game_action;
 }
@@ -93,7 +94,4 @@ GameControl::~GameControl() {
 void GameControl::do_user_scene(std::string) {
 }
 
-void GameControl::init(BakaEnvironment* bakaEn) {
-	this->control_baka = bakaEn;
-	bakaEn->set_game_controller(this);
-}
+

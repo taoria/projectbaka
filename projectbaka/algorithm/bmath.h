@@ -4,6 +4,7 @@
 #include<algorithm>
 #include "../3rd/tinymt/tinymt32.h"
 namespace math {
+	const double PI=3.1415926;
 	class RIG {
 	
 	private:

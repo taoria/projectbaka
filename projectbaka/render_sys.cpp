@@ -23,30 +23,16 @@ WorldPart::~WorldPart()
 	SIZE = -1;
 }
 bool BAKADLL abc = true;
-bool BakaEnvironment::Render(){
-	//if (thisBack->GetColor() == 0){
-	//	render_sprite_global(thisBack, 0,0);
-	//}
-	//for (int i = 0; i <= thisWorld->SIZE; i++){ 
-	//	render_sprite(thisCam, thisWorld->render_list[i]);
-	//}
-	//SpriteBase *s;
-	//for (int i = 0; i <= thisGlobal->SIZE; i++){
-	//	s = thisGlobal->render_list[i];
-	//	render_sprite_global(s,s->realY, s->realY);
-	//}
-	return true;
-}
+
 void Render::render_this() {
 }
 
 render_group::~render_group() {
 }
 
-Render::Render(BakaEnvironment *be) {
-	this->be = be;
-	be->render = this;
-}
+
+
+
 Render* Render::get_render(BakaEnvironment *be,int state) {
 	switch (state) {
 		case Render::STATE_ACTIVE: 

@@ -36,7 +36,6 @@ class BAKADLL GameControl;
 class BAKADLL TextureManager;
 class BAKADLL Texture;
 class BAKADLL ObjectBase;
-
 class EntityObjectBase : public ObjectBase {
 private:
 	b_id baseObjectId;
@@ -51,7 +50,6 @@ public:
 		baseObjectId = id;
 	}
 };
-
 class BaseSystem : public ObjectBase {
 private:
 	b_id baseSystemId;
@@ -59,7 +57,6 @@ public:
 	virtual ~BaseSystem() = default;
 	b_id ReturnHandleId();
 };
-
 class BAKADLL WorldPart : public ObjectBase {
 public:
 	SpriteBase* render_list[8192];
@@ -69,9 +66,7 @@ public:
 	void AddRenderSprite(SpriteBase* s);
 
 };
-
 class BAKADLL Global;
-
 class BAKADLL WorldBase {
 public:
 	int sizeX; //the size of world,which is indicated by 
@@ -81,7 +76,6 @@ public:
 	WorldBase(int, int); //构造函数 done
 	bool AddSprite(int x, int y, SpriteBase& s);//添加精灵 undo
 };
-
 class BAKADLL RenderCamera {
 public:
 	int camera_X; //摄像机中心
@@ -92,11 +86,9 @@ public:
 		camera_Y = new_Y;
 	}
 };
-
 class StateMachine : public ObjectBase {
 	int State;
 };
-
 class BAKADLL BakaEnvironment : public ObjectBase {
 protected:
 	float game_fps;
@@ -107,13 +99,11 @@ private:
 	ID2D1HwndRenderTarget* bakaRenderTarget = nullptr;
 	ID2D1SolidColorBrush* pBlackBrush = nullptr;
 	ID2D1BitmapBrush* bakaBitMapBrush = nullptr;
-	GameControl* bakaGameControl;
 #endif
 	RECT __windowRect;
 	BakaBitmap* __BakaBitMap = nullptr;
-	bool RegisterBaka();
-	bool SetDefaultSettings();
-	TextureManager* textureManager;
+	bool register_baka();
+	bool set_default_settings();
 	RIG* globalRandomGenerator;
 public:
 	int windowX; //position of windows
@@ -127,18 +117,16 @@ public:
 	Global* thisGlobal = nullptr;
 	HWND bakaHwnd = nullptr;
 	HICON bakaIcon = nullptr;
-	Render* render = nullptr;
+	void FlushWindows();
+	void DrawWindwos();
 	HCURSOR bakaCursor = nullptr;
 	HINSTANCE bakaInstance = nullptr;
 	HBRUSH bakaHBrush = nullptr;
-
 	//basic information 
 	B_CHAR title[250];
 	B_CHAR classname[250];
 	//绘制一个矩形
 	void DrawARectAngle();
-	//注册
-	//
 	void set_fps(float fps);
 	void draw_begin();
 	void draw_end();
@@ -149,19 +137,17 @@ public:
 	bool render_texture(Texture* texture, int x, int y, int resizeX, int resizeY, float rotation);
 	bool render_sprite(RenderCamera* a, SpriteBase* b);
 	bool render_sprite_global(SpriteBase* b, int x, int y);
-	bool Render();
 	bool baka_create_window();
 	bool baka_set_control(GameControl* g);
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);
 	int set_back_ground(PCWSTR a);
 	BakaEnvironment(int, int);
-	void init();
 	TextureManager* get_texturemanager_instance();
-	void set_game_controller(GameControl* gameControl);
 	LRESULT static CALLBACK baka_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	HRESULT load_bitmap(PCWSTR uri, ID2D1Bitmap** ppBitmap);
 	//Closed
 	float get_fixed_frames();
+
 	int get_random_int(int min, int max);
 };
