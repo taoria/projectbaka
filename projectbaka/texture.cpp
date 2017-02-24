@@ -4,7 +4,7 @@
 #include "render/textureset.h"
 #include "render/sprite.h"
 using namespace std;
-Texture* TextureManager::TextureLoadBitmap(PCWSTR adress,string newTextureName) {
+Texture* TextureManager::texture_load_bitmap(PCWSTR adress,string newTextureName) {
 	Texture *temp = new Texture(newTextureName);
 	HRESULT h = be->load_bitmap(adress, temp->get_bitmap());
 	textureset[newTextureName] = temp;

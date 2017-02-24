@@ -15,7 +15,7 @@ class BAKADLL  TextureManager : public ObjectBase {
 public:
 	std::map<std::string, Texture*>  textureset;
 	BakaEnvironment *be;
-	Texture* TextureLoadBitmap(PCWSTR adress,std::string picname);
+	Texture* texture_load_bitmap(PCWSTR adress,std::string picname);
 	void texture_deload(std::string picname);
 	TextureManager(BakaEnvironment *be);
 	void attach_to_sprite(SpriteBase* sprite,std::string name);

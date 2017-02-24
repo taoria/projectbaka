@@ -114,6 +114,7 @@
     <ClCompile Include="algorithm.cpp" />
     <ClCompile Include="algorithm\astar.cpp" />
     <ClCompile Include="algorithm\bmath.cpp" />
+    <ClCompile Include="bthread.cpp" />
     <ClCompile Include="constant.cpp" />
     <ClCompile Include="control.cpp" />
     <ClCompile Include="core\base_type.cpp" />

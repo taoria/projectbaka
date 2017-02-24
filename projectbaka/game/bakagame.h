@@ -35,7 +35,9 @@ public:
 	void add_scene(std::string, GameScene* game_scene);
 	void add_acion(std::string, GameAction&);
 	void add_acion(std::string, GameAction*);
+	void game_loading();
 	virtual void do_begin();
+	virtual void do_init();
 	virtual void do_end() { return; }
 	virtual void do_gaming() { return; }
 	void game_start();

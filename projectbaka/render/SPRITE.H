@@ -18,7 +18,7 @@ public:
 	SpriteBase(double x, double ye) {
 	}
 	SpriteBase(double x, double y, int sizeX, int sizeY);
-	void Rotation(float ang);
+	void rotation_self(float ang);
 	float get_rotation() {
 		return rotation;
 	}

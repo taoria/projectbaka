@@ -75,7 +75,14 @@ void GameControl::add_acion(std::string name, GameAction* game_action) {
 	this->ActionSet[name] = game_action;
 }
 
+void GameControl::game_loading() {
+	do_init();
+	do_begin();
+}
 void GameControl::do_begin() {
+}
+
+void GameControl::do_init() {
 }
 
 

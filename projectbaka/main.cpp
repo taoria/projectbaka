@@ -18,15 +18,15 @@ std::vector<GameControl*> controller_set;
 //*******************************GLOBAL FUNCTION******************************************************************************//
 DWORD WINAPI GameControl::game_looping(void* args) {
 	GameControl *gc = static_cast<GameControl*>(args);
+
 	while(true) {
-		//InvalidateRgn(gc->control_baka->bakaHwnd, NULL, true);
-		UpdateWindow(gc->control_baka->bakaHwnd);
+
 		gc->do_gaming();
-		SendMessage(gc->control_baka->bakaHwnd, WM_PAINT, NULL, NULL);
 		if (gc->control_baka->get_fixed_frames() > 10)
 			Sleep(gc->control_baka->get_fixed_frames());
 		else
 			Sleep(33);
+		gc->control_baka->RefreshWindow();
 	}
 
 }
@@ -200,6 +200,12 @@ bool BakaEnvironment::baka_create_window(){
 	}
 	return true;
 }
+
+bool BakaEnvironment::RefreshWindow() {
+	bakaRenderTarget->Clear();
+	return true;
+}
+
 void BakaEnvironment::draw_begin(){
 	this->bakaRenderTarget->BeginDraw();
 }
@@ -294,16 +300,7 @@ bool BakaEnvironment::render_texture(Texture* texture, int x, int y) {
 	return false;
 }
 bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX, int resizeY) {
-	BakaBitmap *bbMap = *(texture->get_bitmap());
-	D2D1_POINT_2F upperLeftCorner = D2D1::Point2F(x, y);
-	bakaRenderTarget->DrawBitmap(
-		bbMap,
-		D2D1::RectF(
-			upperLeftCorner.x,
-			upperLeftCorner.y,
-			upperLeftCorner.x + resizeX,
-			upperLeftCorner.y + resizeY)
-	);
+	render_texture(texture, x, y, resizeX, resizeY, 0);
 	return false;
 }
 bool BakaEnvironment::render_texture(Texture* texture, int x, int y, int resizeX, int resizeY,float rotation) {
