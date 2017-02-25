@@ -1,29 +1,12 @@
 #include "game/bakagame.h"
 #include <Windows.h>
-
+#include "core/bthread.h"
 void GameControl::_set_game_state(state state) {
 	this->game_state_ = state;
 }
 
 void GameControl::_game_loop() {
-	while (this->game_state_ != GameControl::GAME_STATE_END) {
-		switch (game_state_) {
-		case GameControl::GAME_STATE_LOADING:
-			{
-				this->while_loading();
-				break;
-			}
-		case GameControl::GAME_STATE_GAMING:
-			{
-				this->while_gaming();
-				break;
-			}
-		
-		default:
-			break;
-		}
-//		Sleep(1000/this->control_baka->get_fixed_frames());
-	}
+	
 }
 
 DWORD GameControl::_set_fps(DWORD FPS) {
@@ -40,10 +23,10 @@ void GameControl::_JumpToState(state state) {
 	switch (state) {
 	case GAME_STATE_BEGIN:
 		{
-			this->_do_begin();
+			this->do_begin();
 			break;
 		}
-	case GAME_STATE_END:
+	case GAME_STATE_LOADING_END:
 		{
 			this->do_end();
 			break;
@@ -75,9 +58,54 @@ void GameControl::add_acion(std::string name, GameAction* game_action) {
 	this->ActionSet[name] = game_action;
 }
 
+/**
+ * \brief  GameInitThread
+ * 
+ */
+class GameInitThread :public bThread {
+private:
+	GameControl *gc = nullptr;
+public:
+	GameInitThread(GameControl* gc);
+	~GameInitThread();
+	void action() override;
+};
+
+GameInitThread::GameInitThread(GameControl *gc) {
+	this ->gc = gc;
+	
+}
+
+GameInitThread::~GameInitThread() {
+	CloseHandle(b_thread);
+}
+
+void GameInitThread::action() {
+	gc->game_loading();
+	delete this;
+}
 void GameControl::game_loading() {
-	do_init();
 	do_begin();
+	this->game_state_ = GameControl::GAME_STATE_LOADING_END;
+}
+void GameControl::initialize() {
+	this->game_state_ = GameControl::GAME_STATE_LOADING;
+	do_init();
+	GameInitThread *temp = new GameInitThread(this);
+	temp->start();
+	
+}
+
+void GameControl::wait_loading_end() {
+	while (this->game_state_ == GameControl::GAME_STATE_LOADING);
+	return;
+}
+
+bool GameControl::loading_end() const {
+	return this->game_state_ == GAME_STATE_LOADING_END;
+}
+unsigned int  GameControl::get_state() {
+	return this->game_state_;
 }
 void GameControl::do_begin() {
 }
@@ -90,9 +118,6 @@ void GameControl::add_acion(std::string name, GameAction& game_action) {
 	this->ActionSet[name] = &game_action;
 }
 
-void GameControl::_do_begin() {
-	DebugBox("23333");
-}
 
 GameControl::~GameControl() {
 

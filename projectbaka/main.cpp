@@ -7,6 +7,7 @@
 #include "render/render_system.h"
 #include "game/bakagame.h"
 #include<vector>
+#include "core/bThread.h"
 #pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
 using namespace D2D1;
@@ -18,9 +19,7 @@ std::vector<GameControl*> controller_set;
 //*******************************GLOBAL FUNCTION******************************************************************************//
 DWORD WINAPI GameControl::game_looping(void* args) {
 	GameControl *gc = static_cast<GameControl*>(args);
-
 	while(true) {
-
 		gc->do_gaming();
 		if (gc->control_baka->get_fixed_frames() > 10)
 			Sleep(gc->control_baka->get_fixed_frames());
@@ -31,6 +30,7 @@ DWORD WINAPI GameControl::game_looping(void* args) {
 
 }
 void GameControl::game_start() {
+	this->game_state_ = GameControl::GAME_STATE_GAMING;
 	HANDLE hThread_1 = CreateThread(NULL, 0, game_looping, this, 0, NULL);
 }
 Render::Render(BakaEnvironment* be) {
@@ -59,6 +59,8 @@ void Wchar_tToString(std::string& szDst, const wchar_t *wchar) //trans str
 	szDst = psText;
 	delete[]psText;
 }
+
+
 //******************************BAKA ENVI******************************************************************************//
 BakaEnvironment::BakaEnvironment(int x, int y,int wx,int wy){
 	//set positions
@@ -216,7 +218,6 @@ bool BakaEnvironment::baka_start(){
 	ShowWindow(bakaHwnd, SW_SHOWNORMAL);
 	UpdateWindow(bakaHwnd);
 	MSG msg;
-
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 	//	DebugInt(ThisWorld->SIZE);
@@ -253,20 +254,23 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 	//PAINTSTRUCT ps;
 
 	//RECT     rect;
+	
 	switch (msg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:{
+		
 		for(Render *r:render_set) {
 			r->render_this();
+		
 		}
 		break;
 	}
 	case WM_CREATE:
 		{
-
+	
 		break;
 		}
 	default:
@@ -369,7 +373,6 @@ HRESULT BakaEnvironment::load_bitmap(PCWSTR uri,ID2D1Bitmap **pBitmap) {
 	else {
 		//Initialize Converter
 		hr = pConverter->Initialize(
-
 			pFrame,
 			GUID_WICPixelFormat32bppPBGRA,
 			WICBitmapDitherTypeNone,
@@ -405,7 +408,12 @@ float BakaEnvironment::get_fixed_frames() {
 }
 
 int BakaEnvironment::get_random_int(int min, int max) {
+	if(this->globalRandomGenerator)
 	return globalRandomGenerator->rand_int(min, max);
+	else {
+		this->globalRandomGenerator = new math::RIG();
+	}
+	return 0;
 }
 
 //WorldBase:://

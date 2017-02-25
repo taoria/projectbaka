@@ -19,15 +19,14 @@ private:
 protected:
 	BakaEnvironment *control_baka;
 	state game_state_;
-	const static state GAME_STATE_BEGIN = 0x000023333;
-	const static state GAME_STATE_END = 0x0000BABA;
-	const static state GAME_STATE_LOADING = 0x0000CCCCC;
-	const static state GAME_STATE_GAMING = 0x000066666;
+	const static state GAME_STATE_BEGIN = 0x01;
+	const static state GAME_STATE_LOADING_END = 0x03;
+	const static state GAME_STATE_LOADING = 0x02;
+	const static state GAME_STATE_GAMING = 0x04;
 	void _set_game_state(state state);
 	void _game_loop();
 	
 	void _JumpToState(state state);
-	void _do_begin();
 public:
 	virtual ~GameControl();
 	DWORD _set_fps(DWORD FPS);
@@ -36,9 +35,16 @@ public:
 	void add_acion(std::string, GameAction&);
 	void add_acion(std::string, GameAction*);
 	void game_loading();
+	void initialize();
+	void wait_loading_end();
+	bool loading_end() const;
+	unsigned get_state();
 	virtual void do_begin();
 	virtual void do_init();
 	virtual void do_end() { return; }
+	/**
+	 * \brief 
+	 */
 	virtual void do_gaming() { return; }
 	void game_start();
 	static DWORD WINAPI game_looping(void* args);

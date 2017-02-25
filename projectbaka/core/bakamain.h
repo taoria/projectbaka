@@ -22,7 +22,6 @@ BAKADLL void DebugInt(int);
 #include "stdafx.h"
 #include "base_object.h"
 #include "../algorithm/bmath.h"
-using math::RIG;
 typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
 typedef unsigned int b_id;
@@ -104,7 +103,7 @@ private:
 	BakaBitmap* __BakaBitMap = nullptr;
 	bool register_baka();
 	bool set_default_settings();
-	RIG* globalRandomGenerator;
+	math::RIG* globalRandomGenerator;
 public:
 	int windowX; //position of windows
 	int windowY;
