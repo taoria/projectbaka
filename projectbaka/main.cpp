@@ -7,7 +7,7 @@
 #include "render/render_system.h"
 #include "game/bakagame.h"
 #include<vector>
-#include "core/bThread.h"
+#include "eventlistener.h"
 #pragma warning(disable:4996)
 class BAKADLL BakaEnvironment;
 using namespace D2D1;
@@ -15,7 +15,7 @@ SpriteBase *test;
 std::vector<BakaEnvironment*> environment_set;
 std::vector<Render*> render_set;
 std::vector<GameControl*> controller_set;
-
+std::queue<Event*> *v;
 //*******************************GLOBAL FUNCTION******************************************************************************//
 DWORD WINAPI GameControl::game_looping(void* args) {
 	GameControl *gc = static_cast<GameControl*>(args);
@@ -268,9 +268,22 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 		}
 		break;
 	}
+	case WM_CHAR:{
+		if(!v) {
+			DebugBox("Error Can't find Event Queue");
+		}else {
+			v->push(new Event(wParam,Event::STATE_KEY_EVENT,0));
+		}
+		break;
+	}
 	case WM_CREATE:
 		{
-	
+		DebugBox("push_test");
+		//register listener thread;
+		EventThread *event_thread = new EventThread(environment_set[0]);
+		event_thread->InitEventThread();
+		v = event_thread->GetEventQueue();
+		event_thread->start();
 		break;
 		}
 	default:

@@ -93,6 +93,7 @@
     <ClInclude Include="core\constant.h" />
     <ClInclude Include="core\master_manager.h" />
     <ClInclude Include="core\reflector.h" />
+    <ClInclude Include="eventlistener.h" />
     <ClInclude Include="game\bakagame.h" />
     <ClInclude Include="core\bakamain.h" />
     <ClInclude Include="game\scene.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="core\base_type.cpp" />
     <ClCompile Include="core\master_manager.cpp" />
     <ClCompile Include="core\reflector.cpp" />
+    <ClCompile Include="eventlistener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BaseContainer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
