@@ -26,7 +26,8 @@ public:
 		  event_type(event_type),
 		  event_id(event_id) {
 	}
-
+	static DWORD GetCharKeyCode(char c);
+		
 	DWORD event_message;
 	DWORD event_type;
 	b_id event_id;

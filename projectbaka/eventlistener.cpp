@@ -47,6 +47,11 @@ void EventThread::action() {
 EventThread::~EventThread() {
 }
 
+DWORD Event::GetCharKeyCode(char c) {
+	c = tolower(c);
+	return c;
+}
+
 void EventListener::do_action(Event* e) {
 }
 
