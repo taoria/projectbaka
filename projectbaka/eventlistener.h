@@ -4,7 +4,7 @@
 
 class EventListener;
 class Event;
-class EventThread :public bThread {
+class BAKADLL EventThread :public bThread {
 private:
 		BakaEnvironment* be;
 public:
@@ -16,16 +16,12 @@ public:
 	void action() override;
 	~EventThread() override;
 };
-class Event {
+class BAKADLL Event {
 public:
 	const static DWORD STATE_KEY_EVENT = 0x01;
 	const static DWORD STATE_MOUSE_LEFT_CLICK_EVENT = 0x02;
 	const static DWORD STATE_MOUSE_RIGHT_CLICK_EVENT = 0x03;
-	Event(DWORD event_message, DWORD event_type, b_id event_id)
-		: event_message(event_message),
-		  event_type(event_type),
-		  event_id(event_id) {
-	}
+	Event(DWORD event_message, DWORD event_type, b_id event_id);
 	static DWORD GetCharKeyCode(char c);
 		
 	DWORD event_message;

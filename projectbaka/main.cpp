@@ -25,7 +25,7 @@ DWORD WINAPI GameControl::game_looping(void* args) {
 			Sleep(gc->control_baka->get_fixed_frames());
 		else
 			Sleep(33);
-		gc->control_baka->RefreshWindow();
+		gc->control_baka->refresh_window();
 	}
 
 }
@@ -203,7 +203,7 @@ bool BakaEnvironment::baka_create_window(){
 	return true;
 }
 
-bool BakaEnvironment::RefreshWindow() {
+bool BakaEnvironment::refresh_window() {
 	bakaRenderTarget->Clear();
 	return true;
 }
@@ -228,15 +228,15 @@ bool BakaEnvironment::baka_start(){
 	return true;
 }
 
-void BakaEnvironment::FlushWindows() {
+void BakaEnvironment::flush_windows() {
 	this->bakaRenderTarget->Flush();
 }
 
-void BakaEnvironment::DrawWindwos() {
+void BakaEnvironment::draw_windwos() {
 	this->bakaRenderTarget->Clear();
 }
 
-void BakaEnvironment::DrawARectAngle(){
+void BakaEnvironment::draw_a_rect_angle(){
     #ifdef baka_d2d
 	bakaRenderTarget->DrawRectangle(RectF(__windowRect.left + 100.0f, __windowRect.top + 100.0f, __windowRect.right - 100.0f, __windowRect.bottom - 100.0f), pBlackBrush);
 	//render_sprite_global(test, 200, 200);
@@ -268,7 +268,7 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 		}
 		break;
 	}
-	case WM_CHAR:{
+	case WM_KEYDOWN:{
 		if(!v) {
 			DebugBox("Error Can't find Event Queue");
 		}else {
@@ -278,7 +278,6 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 	}
 	case WM_CREATE:
 		{
-		DebugBox("push_test");
 		//register listener thread;
 		EventThread *event_thread = new EventThread(environment_set[0]);
 		event_thread->InitEventThread();

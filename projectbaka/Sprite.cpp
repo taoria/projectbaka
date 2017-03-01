@@ -15,3 +15,7 @@ void SpriteBase::rotation_self(float ang){
 	if (rotation > A2R(360)) rotation -= A2R(360);
 	if (rotation < 0) rotation += A2R(360);
 }
+float SpriteBase::set_rotation(float flag) {
+	this->rotation = flag;
+	return flag;
+}

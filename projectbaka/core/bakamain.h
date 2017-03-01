@@ -116,8 +116,8 @@ public:
 	Global* thisGlobal = nullptr;
 	HWND bakaHwnd = nullptr;
 	HICON bakaIcon = nullptr;
-	void FlushWindows();
-	void DrawWindwos();
+	void flush_windows();
+	void draw_windwos();
 	HCURSOR bakaCursor = nullptr;
 	HINSTANCE bakaInstance = nullptr;
 	HBRUSH bakaHBrush = nullptr;
@@ -125,7 +125,7 @@ public:
 	B_CHAR title[250];
 	B_CHAR classname[250];
 	//绘制一个矩形
-	void DrawARectAngle();
+	void draw_a_rect_angle();
 	void set_fps(float fps);
 	void draw_begin();
 	void draw_end();
@@ -137,7 +137,7 @@ public:
 	bool render_sprite(RenderCamera* a, SpriteBase* b);
 	bool render_sprite_global(SpriteBase* b, int x, int y);
 	bool baka_create_window();
-	bool RefreshWindow();
+	bool refresh_window();
 	bool baka_set_control(GameControl* g);
 	BakaEnvironment(int, int, int, int);// the main construction allows users create windows
 	BakaEnvironment(int, int, int, int, PCWSTR a);

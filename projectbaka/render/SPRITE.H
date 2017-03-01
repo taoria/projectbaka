@@ -22,6 +22,7 @@ public:
 	float get_rotation() {
 		return rotation;
 	}
+	float set_rotation(float flag);
 	void reset_rotation() {
 		rotation = 0;
 	}

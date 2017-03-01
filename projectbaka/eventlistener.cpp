@@ -47,8 +47,14 @@ void EventThread::action() {
 EventThread::~EventThread() {
 }
 
+Event::Event(DWORD event_message, DWORD event_type, b_id event_id): event_message(event_message),
+                                                                    event_type(event_type),
+                                                                    event_id(event_id) {
+}
+
 DWORD Event::GetCharKeyCode(char c) {
 	c = tolower(c);
+	c = 0x41 + c - 'a';
 	return c;
 }
 
