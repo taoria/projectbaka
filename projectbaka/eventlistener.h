@@ -4,6 +4,7 @@
 
 class EventListener;
 class Event;
+//Event Thread is a thread that Listen to event in the game ,it will be initialized in the environment.
 class BAKADLL EventThread :public bThread {
 private:
 		BakaEnvironment* be;
@@ -16,6 +17,7 @@ public:
 	void action() override;
 	~EventThread() override;
 };
+//Event is some message send by Event Thread to EventListener.
 class BAKADLL Event {
 public:
 	const static DWORD STATE_KEY_EVENT = 0x01;
@@ -30,7 +32,8 @@ public:
 
 };
 
-
+//Event Listener listen to event_thread to send back event and do actions to react.
+//user register event function to bind itself to listen to some kind of events
 class BAKADLL EventListener {
 public:
 	/**
@@ -38,5 +41,5 @@ public:
 	 * \param e 
 	 */
 	virtual void do_action(Event* e);
-	void RegisterEvent(DWORD event_type);
+	void register_event(DWORD event_type);
 };

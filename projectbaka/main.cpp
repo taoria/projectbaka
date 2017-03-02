@@ -261,11 +261,12 @@ LRESULT CALLBACK BakaEnvironment::baka_proc(HWND hwnd, UINT msg, WPARAM wParam, 
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:{
-		
+		environment_set[0]->draw_begin();
 		for(Render *r:render_set) {
 			r->render_this();
 		
 		}
+		environment_set[0]->draw_end();
 		break;
 	}
 	case WM_KEYDOWN:{

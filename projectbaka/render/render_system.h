@@ -2,6 +2,7 @@
 #include<map>
 #include <vector>
 #include"sprite.h"
+//render group to render object by a distinguished level
 class BAKADLL render_group :public std::map<int, std::vector<SpriteBase*>> , ObjectBase{
 	private:
 		int id;
@@ -11,6 +12,7 @@ class BAKADLL render_group :public std::map<int, std::vector<SpriteBase*>> , Obj
 	void add_sprite(SpriteBase* spriteBase) {this->add_sprite(0, spriteBase);}
 
 };
+//renders render Sprite
 class BAKADLL Render :public ObjectBase {
 protected :
 	BakaEnvironment *be;
@@ -25,6 +27,7 @@ public:
 	void add_sprite(int level, SpriteBase* spriteBase) { (renderGroup)[level].push_back(spriteBase); }
 	void add_sprite(SpriteBase* spriteBase) { this->add_sprite(0, spriteBase); }
 };
+//SpriteRenders render active sprite
 class BAKADLL SpriteRender :public Render {
 public:
 	explicit SpriteRender(BakaEnvironment *be) :Render(be) {
@@ -34,6 +37,7 @@ public:
 	void render_this();
 
 };
+//Fixed Renders render fixed sprite
 class BAKADLL FixedRender :public Render {
 public:
 	explicit FixedRender(BakaEnvironment *be) :Render(be) {

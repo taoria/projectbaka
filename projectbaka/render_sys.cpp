@@ -7,6 +7,9 @@ void DebugInt(int x){
 	sprintf_s(f, "%d", x);
 }
 
+EntityObjectBase::~EntityObjectBase() {
+}
+
 b_id BaseSystem::ReturnHandleId()
 {
 	return baseSystemId;
@@ -44,21 +47,17 @@ Render* Render::get_render(BakaEnvironment *be,int state) {
 	}
 }
 void SpriteRender::render_this() {
-	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {
 			be->render_sprite(be->thisCam, sprite);
 		}
 	}
-	this->be->draw_end();
 }
 void FixedRender::render_this() {
-	this->be->draw_begin();
 	for (auto iterator = renderGroup.begin(); iterator != renderGroup.end(); iterator++) {
 		for (SpriteBase* sprite : (*iterator).second) {
 		
 			be->render_sprite_global(sprite, sprite->realX, sprite->realY);
 		}
 	}
-	this->be->draw_end();
 }

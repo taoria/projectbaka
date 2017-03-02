@@ -62,7 +62,7 @@ void EventListener::do_action(Event* e) {
 }
 
 
-void EventListener::RegisterEvent(DWORD event_type) {
+void EventListener::register_event(DWORD event_type) {
 	if (!event_map[event_type])
 		event_map[event_type] = new std::vector<EventListener*>;
 	event_map[event_type]->push_back(this);

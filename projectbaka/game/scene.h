@@ -8,6 +8,7 @@ private:
 	 std::string m_scene_name;
 public:
 };
+//not yet been used.
 class SceneManager {
 	std::map<std::string, Scene*> scene_map;
 public:

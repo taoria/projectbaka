@@ -1,5 +1,8 @@
 #pragma once
 #include<string>
+/**
+ * \brief  fundamental base classs ,extended by all the class .
+ */
 class __declspec(dllexport) ObjectBase {
 public:
 

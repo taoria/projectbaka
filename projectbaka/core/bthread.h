@@ -1,5 +1,6 @@
 #pragma once
 #include "bakamain.h"
+//thread class ,not yet totally finished ,but it works.
 class bThread :ObjectBase{
 protected:
 	HANDLE b_thread;

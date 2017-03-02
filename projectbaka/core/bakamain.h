@@ -25,6 +25,7 @@ BAKADLL void DebugInt(int);
 typedef CHAR B_CHAR;
 typedef int B_STATEMACHINE;
 typedef unsigned int b_id;
+
 class Render;
 class BackGround;
 class BAKADLL SpriteBase;
@@ -35,11 +36,15 @@ class BAKADLL GameControl;
 class BAKADLL TextureManager;
 class BAKADLL Texture;
 class BAKADLL ObjectBase;
+
+/**
+ * \brief Not used actually
+ */
 class EntityObjectBase : public ObjectBase {
 private:
 	b_id baseObjectId;
 public:
-	virtual ~EntityObjectBase() = default;
+	virtual ~EntityObjectBase();
 
 	b_id ReturnHandleId() {
 		return baseObjectId;
@@ -49,6 +54,10 @@ public:
 		baseObjectId = id;
 	}
 };
+/**
+ * \brief not used  actually
+ * 
+ */
 class BaseSystem : public ObjectBase {
 private:
 	b_id baseSystemId;
@@ -56,6 +65,9 @@ public:
 	virtual ~BaseSystem() = default;
 	b_id ReturnHandleId();
 };
+/**
+ * \brief not yet completed and maybe will be deleted later
+ */
 class BAKADLL WorldPart : public ObjectBase {
 public:
 	SpriteBase* render_list[8192];
@@ -66,6 +78,9 @@ public:
 
 };
 class BAKADLL Global;
+/**
+ * \brief 
+ */
 class BAKADLL WorldBase {
 public:
 	int sizeX; //the size of world,which is indicated by 
@@ -75,6 +90,9 @@ public:
 	WorldBase(int, int); //构造函数 done
 	bool AddSprite(int x, int y, SpriteBase& s);//添加精灵 undo
 };
+/**
+ * \brief not yet completed ,as a camera，used by a render.
+ */
 class BAKADLL RenderCamera {
 public:
 	int camera_X; //摄像机中心
@@ -85,9 +103,15 @@ public:
 		camera_Y = new_Y;
 	}
 };
+/**
+ * \brief not yet complete
+ */
 class StateMachine : public ObjectBase {
 	int State;
 };
+/**
+ * \brief baka environment ,which provide basic environment of render and logistics of the game.must be initialized in the begin of the game;
+ */
 class BAKADLL BakaEnvironment : public ObjectBase {
 protected:
 	float game_fps;

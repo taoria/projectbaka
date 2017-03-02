@@ -2,16 +2,19 @@
 #include "core/bakamain.h"
 #pragma once
 typedef DWORD state;
+//a game action! an action will be down sometimes.
 class BAKADLL GameAction {
 public:
 	virtual ~GameAction() = default;
 	virtual void do_action()=0;
 };
+//a game scene , not yet finished
 class BAKADLL GameScene {
 public:
 	virtual ~GameScene() = default;
 	virtual void show_scene() = 0;
 };
+//game control ,the basic one of the framework ,new a son-class of GameControl and rewrite its function to start the game.use do_begin() to initialize base component and use do_loading() to initialize aming object.
 class BAKADLL GameControl {
 private:
 	std::map<std::string, GameAction*> ActionSet;

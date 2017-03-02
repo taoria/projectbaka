@@ -1,6 +1,7 @@
 #pragma once
 #include "core\bakamain.h"
 #include"render\textureset.h"
+//Sprite base...
 class BAKADLL SpriteBase :public EntityObjectBase
 {
 private:
