@@ -182,9 +182,6 @@
     <ClCompile Include="render_sys.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="bthread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
