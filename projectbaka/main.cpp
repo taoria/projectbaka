@@ -20,12 +20,13 @@ std::queue<Event*> *v;
 DWORD WINAPI GameControl::game_looping(void* args) {
 	GameControl *gc = static_cast<GameControl*>(args);
 	while(true) {
+		gc->control_baka->refresh_window();
 		gc->do_gaming();
 		if (gc->control_baka->get_fixed_frames() > 10)
 			Sleep(gc->control_baka->get_fixed_frames());
 		else
 			Sleep(33);
-		gc->control_baka->refresh_window();
+
 	}
 
 }
