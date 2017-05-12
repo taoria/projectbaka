@@ -11,16 +11,18 @@
 // Windows Header Files:
 #define baka_d2d
 #ifdef baka_gdi //dx9 settings 
-#include <d2d1.h>
+
 #define BakaBitMap = Nothing
 #else
 #ifdef baka_dx12
-#include <d3d11.h>
+
 #define D3DCREATE = Direct3DCreate11(D3D_SDK_VERSION)
 #else
 #ifdef baka_d2d
 #include "D2dPrerequisite.h"
 #define BakaBitmap ID2D1Bitmap
+#include <d3d11.h>
+#include <d2d1.h>
 #endif
 #endif
 #endif

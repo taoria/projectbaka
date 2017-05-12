@@ -19,7 +19,7 @@ DWORD GameControl::_set_fps(DWORD FPS) {
  * \param FPS 
  * \return DWORD
  */
-void GameControl::_JumpToState(state state) {
+void GameControl::jump_to_state(state state) {
 	switch (state) {
 	case GAME_STATE_BEGIN:
 		{

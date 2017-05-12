@@ -25,7 +25,7 @@ void DeployController::reforge_handle(){
 
 Set<Interval<b_id>*>& IDDeployer::BID_Interval::split(b_id id) {
 	Set<math::Interval<b_id>*> *s = new math::Set<math::Interval<b_id>*>;
-	if (this->Include(id)) {
+	if (this->include(id)) {
 		if (id >firstElement) {
 			BID_Interval* temp1 = new BID_Interval(firstElement, id - 1);
 			s->push_back(temp1);
@@ -54,7 +54,7 @@ b_id IDDeployer::BID_Interval::get_random_bid(BakaEnvironment* be) {
 void IDDeployer::BIDSet::split(b_id id) {
 	BIDSet::iterator i = this->begin();
 	for (i; i != this->end(); i++) {
-		if ((*i)->Include(id)) {
+		if ((*i)->include(id)) {
 			break;
 		}
 	}
@@ -68,12 +68,12 @@ void IDDeployer::BIDSet::split(b_id id) {
 }
 
 void IDDeployer::BIDSet::merge(Interval<b_id>* m) {
-	this->SortIncrease();
+	this->sort_increase();
 	BIDSet *temp = new BIDSet;
 	BID_Interval *tempval;
 	for (Interval<b_id>* i : *this) {
-		tempval = dynamic_cast<BID_Interval*>(&(i->Merge(*m)));
-		if (tempval->Invalid()) {
+		tempval = dynamic_cast<BID_Interval*>(&(i->merge(*m)));
+		if (tempval->invalid()) {
 			temp->push_back(i);
 		}
 		else {

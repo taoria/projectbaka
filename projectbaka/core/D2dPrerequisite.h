@@ -3,12 +3,8 @@
 
 //////////////////////////////////////////////////////////////////////////
  //Header files and lib files for Direct2D and DirectWrite
- #include <d2d1.h>		//Direct2D,for normal rendering task
 #include <wincodec.h>
-#include<wincodecsdk.h>
- #include <d2d1helper.h>
 //#include<d2d1_1helper.h>
- #include <dwrite.h>		//DirectWrite,for drawing text		//Windows imaging component,for image decoding
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dwrite.lib")

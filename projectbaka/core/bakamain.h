@@ -118,6 +118,8 @@ protected:
 	~BakaEnvironment() = default;
 private:
 #ifdef baka_d2d
+
+	//Direct2d factory class...
 	ID2D1Factory* bakaFactory = nullptr; //directXFactory;
 	ID2D1HwndRenderTarget* bakaRenderTarget = nullptr;
 	ID2D1SolidColorBrush* pBlackBrush = nullptr;

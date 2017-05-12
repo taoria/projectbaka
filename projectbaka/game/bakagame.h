@@ -1,5 +1,6 @@
 
 #include "core/bakamain.h"
+#include <bemapiset.h>
 #pragma once
 typedef DWORD state;
 //a game action! an action will be down sometimes.
@@ -29,7 +30,7 @@ protected:
 	void _set_game_state(state state);
 	void _game_loop();
 	
-	void _JumpToState(state state);
+	void jump_to_state(state state);
 public:
 	virtual ~GameControl();
 	DWORD _set_fps(DWORD FPS);

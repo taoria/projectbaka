@@ -24,12 +24,10 @@ public:
 	const static DWORD STATE_MOUSE_LEFT_CLICK_EVENT = 0x02;
 	const static DWORD STATE_MOUSE_RIGHT_CLICK_EVENT = 0x03;
 	Event(DWORD event_message, DWORD event_type, b_id event_id);
-	static DWORD GetCharKeyCode(char c);
-		
+	static DWORD get_key_code(char c);
 	DWORD event_message;
 	DWORD event_type;
 	b_id event_id;
-
 };
 
 //Event Listener listen to event_thread to send back event and do actions to react.

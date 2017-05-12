@@ -1,5 +1,4 @@
 #pragma once
-#include<string>
 #include<map>
 #include "core\bakamain.h"
 //texture ,a basic resource of game,to use it ,initialize a texture manager and load texture of picture from disks.
