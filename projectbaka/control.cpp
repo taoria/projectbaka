@@ -93,7 +93,9 @@ void GameControl::initialize() {
 	do_init();
 	GameInitThread *temp = new GameInitThread(this);
 	temp->start();
-	
+	this->wait_loading_end();
+	this->game_start();
+	this->control_baka->baka_start();
 }
 
 void GameControl::wait_loading_end() {

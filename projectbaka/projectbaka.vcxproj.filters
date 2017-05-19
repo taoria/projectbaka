@@ -129,6 +129,12 @@
     <ClInclude Include="eventlistener.h">
       <Filter>Header Files\event</Filter>
     </ClInclude>
+    <ClInclude Include="core\b_signal.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\signal_manager.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

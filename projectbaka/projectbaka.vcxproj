@@ -92,9 +92,11 @@
     <ClInclude Include="core\base_object.h" />
     <ClInclude Include="core\base_type.h" />
     <ClInclude Include="core\bthread.h" />
+    <ClInclude Include="core\b_signal.h" />
     <ClInclude Include="core\constant.h" />
     <ClInclude Include="core\master_manager.h" />
     <ClInclude Include="core\reflector.h" />
+    <ClInclude Include="core\signal_manager.h" />
     <ClInclude Include="eventlistener.h" />
     <ClInclude Include="game\bakagame.h" />
     <ClInclude Include="core\bakamain.h" />

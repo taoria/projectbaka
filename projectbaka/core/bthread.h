@@ -12,5 +12,6 @@ public:
 	static const unsigned int STATE_THREAD_ACTION_FINISH = 0x00000003; 
 	void start();
 	virtual void action()= 0;
+	void wait();
 	unsigned int thread_state();
 };
